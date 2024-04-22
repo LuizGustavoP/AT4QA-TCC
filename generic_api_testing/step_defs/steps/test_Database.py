@@ -1,0 +1,20 @@
+from pytest_bdd import parsers, given, when, then
+from generic_api_testing.test_classes.Database import Database
+
+@given(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_esperada_bd}" deverá conter o valor "{igual_ou_diferente}" "{valor_esperado}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+@when(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_esperada_bd}" deverá conter o valor "{igual_ou_diferente}" "{valor_esperado}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+@then(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_esperada_bd}" deverá conter o valor "{igual_ou_diferente}" "{valor_esperado}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+def checa_valor_de_coluna_do_bd(nome_bd, tabela_bd, coluna_esperada_bd, igual_ou_diferente, valor_esperado, coluna_where_bd, tipo_coluna_where_bd, valor_where, nome_do_campo, origem_do_campo):
+    assert Database.checa_valor_de_coluna_do_bd(nome_bd, tabela_bd, coluna_esperada_bd, igual_ou_diferente, valor_esperado, coluna_where_bd, tipo_coluna_where_bd, valor_where, nome_do_campo, origem_do_campo)
+    
+@given(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_update}" do tipo "{tipo_coluna_update}" deverá atualizar o valor do campo "{campo_coluna_update}" para o valor "{valor_update}" de tipo "{tipo_valor_update}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+@when(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_update}" do tipo "{tipo_coluna_update}" deverá atualizar o valor do campo "{campo_coluna_update}" para o valor "{valor_update}", de tipo "{tipo_valor_update}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+@then(parsers.cfparse(u'no BD "{nome_bd}" na tabela "{tabela_bd}" a coluna "{coluna_update}" do tipo "{tipo_coluna_update}" deverá atualizar o valor do campo "{campo_coluna_update}" para o valor "{valor_update}", de tipo "{tipo_valor_update}", na linha onde a coluna "{coluna_where_bd}" de tipo "{tipo_coluna_where_bd}" tem o valor "{valor_where}" vindo do campo "{nome_do_campo}" cuja origem é o "{origem_do_campo}"'))
+def update_database_column_value(nome_bd, tabela_bd, coluna_update, tipo_coluna_update, campo_coluna_update, valor_update, tipo_valor_update, coluna_where_bd, tipo_coluna_where_bd, valor_where, nome_do_campo, origem_do_campo):
+    Database.update_database_column_value(nome_bd, tabela_bd, coluna_update, tipo_coluna_update, campo_coluna_update, valor_update, tipo_valor_update, coluna_where_bd, tipo_coluna_where_bd, valor_where, nome_do_campo, origem_do_campo)
+
+@given(parsers.cfparse(u'no BD "{nome_bd}" executar a query "{query}" cujo valor de retorno esperado deverá ser igual a "{valor_esperado}"'))
+@when(parsers.cfparse(u'no BD "{nome_bd}" executar a query "{query}" cujo valor de retorno esperado deverá ser igual a "{valor_esperado}"'))
+@then(parsers.cfparse(u'no BD "{nome_bd}" executar a query "{query}" cujo valor de retorno esperado deverá ser igual a "{valor_esperado}"'))
+def execute_database_query(nome_bd, query, valor_esperado):
+    assert Database.execute_database_query(nome_bd, query, valor_esperado)

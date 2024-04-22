@@ -1,0 +1,226 @@
+{% extends "html1/base.html" %}
+{% block content %}
+<section id="summary">
+  <div class="container">
+    <h1>Summary</h1>
+    {% block summary %}
+    <div class="metadata">
+      <table>
+        {% block session_metadata %}
+        <tr>
+          <th>Started</th>
+          <td>{{ started|strftime(time_format) }}</td>
+        </tr>
+        <tr>
+          <th>Ended</th>
+          <td>
+            {% if ended %}
+              {{ ended|strftime(time_format) }}
+            {% else %}
+              <i>In progress...</i>
+            {% endif %}
+          </td>
+        </tr>
+        {% endblock %}
+      </table>
+    </div>
+    
+      {% set tests_by_category = tests|groupby('status.category') %}
+      {% set nodes_run = tests|map(attribute='item.nodeid')|list %}
+      <div class="pieID--errors pie-chart--wrapper">
+        <h2>Tests: {{tests|length}}</h2>
+        <div class="pie-chart">
+          <div class="pie-chart__pie">
+          </div>
+        </div>
+        <ul class="pie-chart__legend">
+          {% for category, tests in tests_by_category %}
+          <li>
+            <em>{{category}}</em>
+            <span>{{ tests|count }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        </div>
+        <script>
+          
+          function sliceSize(dataNum, dataTotal) {
+            return (dataNum / dataTotal) * 360;
+          }
+
+          function addSlice(id, sliceSize, pieElement, offset, sliceID, color) {
+            $(pieElement).append("<div class='slice "+ sliceID + "'><span></span></div>");
+            var offset = offset - 1;
+            var sizeRotation = -179 + sliceSize;
+
+            $(id + " ." + sliceID).css({
+              "transform": "rotate(" + offset + "deg) translate3d(0,0,0)"
+            });
+
+            $(id + " ." + sliceID + " span").css({
+              "transform"       : "rotate(" + sizeRotation + "deg) translate3d(0,0,0)",
+              "background-color": color
+            });
+          }
+
+          function iterateSlices(id, sliceSize, pieElement, offset, dataCount, sliceCount, color) {
+            var
+              maxSize = 179,
+              sliceID = "s" + dataCount + "-" + sliceCount;
+
+            if( sliceSize <= maxSize ) {
+              addSlice(id, sliceSize, pieElement, offset, sliceID, color);
+            } else {
+              addSlice(id, maxSize, pieElement, offset, sliceID, color);
+              iterateSlices(id, sliceSize-maxSize, pieElement, offset+maxSize, dataCount, sliceCount+1, color);
+            }
+          }
+
+          function createPie(id) {
+            let
+              listData      = [],
+              listTotal     = 0,
+              offset        = 0,
+              i             = 0,
+              pieElement    = id + " .pie-chart__pie"
+              dataElement   = id + " .pie-chart__legend"
+
+              color         = [
+                "cornflowerblue",
+                "olivedrab",
+                "orange",
+                "tomato",
+                "crimson",
+                "purple",
+                "turquoise",
+                "forestgreen",
+                "navy"
+              ];
+
+            color = shuffle( color );
+
+            $(dataElement+" span").each(function() {
+              listData.push(Number($(this).html()));
+            });
+
+            for(i = 0; i < listData.length; i++) {
+              listTotal += listData[i];
+            }
+
+            for(i=0; i < listData.length; i++) {
+              const size = sliceSize(listData[i], listTotal);
+              let color_slice = color[i]
+              if($(dataElement + " li:nth-child(" + (i + 1) + ") em").html() == 'passed'){
+                color_slice = 'green'
+              }
+              else if($(dataElement + " li:nth-child(" + (i + 1) + ") em").html() == 'failed'){
+                color_slice = 'red'
+              }
+              iterateSlices(id, size, pieElement, offset, i, 0, color_slice);
+              $(dataElement + " li:nth-child(" + (i + 1) + ")").css("border-color", color_slice);
+              offset += size;
+            }
+          }
+
+          function shuffle(a) {
+              let j, x, i;
+              for (i = a.length; i; i--) {
+                  j = Math.floor(Math.random() * i);
+                  x = a[i - 1];
+                  a[i - 1] = a[j];
+                  a[j] = x;
+              }
+
+              return a;
+          }
+
+          function createPieCharts() {
+            createPie('.pieID--errors' );
+
+          }
+
+          createPieCharts();
+        </script>
+   
+
+    <div class="metadata"2>
+      <table>
+        {% block session_metadata_2 %}
+        {% if ended %}
+          <tr>
+            <th>Duration</th>
+            {% set duration = ended - started %}
+            <td>{{ duration|timedelta }}</td>
+          </tr>
+        {% endif %}
+        <tr>
+          <th>Total run time</th>
+          <td>{{ tests|map(attribute='phases')|map('sum', 'report.duration')|sum|timedelta }}</td>
+        </tr>
+        {% if config._metadata %}
+          {% for key, value in config._metadata.items() %}
+            <tr>
+              <th>{{ key }}</th>
+              <td>
+                {% if value is mapping %}
+                  {% for key, value in value.items() %}
+                    {{ key }}: {{ value }}
+                  {% endfor %}
+                {% else %}
+                  {{ value|urlize }}
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+        {% endblock %}
+      </table>
+      </div>  
+    {% endblock %}
+  </div>
+</section>
+{% if warnings %}
+  <section id="warnings">
+    <div class="container">
+      <h1>Warnings</h1>
+      {% for warning in warnings %}
+        <div class="status badge warning">WARNING</div>
+        <div>{{ warning.filename }}:{{ warning.lineno }}<br>{{ warning.message }}</div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+<section id="test-files">
+  <div class="container">
+
+    <h1>test</h1>
+    {% for fspath, tests in tests|groupby('item.name_file') %}
+      {% set first_item = tests|map(attribute='item')|first %}
+      <details class="file">
+        <summary>
+          <h2 class="title file-title">
+            {% block module_title scoped %}
+            <span class="fspath">
+              {% block module_name scoped %}
+              {{ first_item.name_file}}
+              {% endblock %}
+            </span>
+            <span class="counts">
+            {% for category, tests in tests|groupby('status.category') -%}
+              <span title="{{ tests|count }} {{ category }}" class="count status badge {{ category }} {{ tests|map(attribute='status.style')|first|join(' ') }}">{{ tests|count }}</span>
+            {%- endfor %}
+            </span>
+            <span class="duration">
+              {{ tests|map(attribute='phases')|map('sum', 'report.duration')|sum|timedelta }}
+            </span>
+            {% endblock %}
+          </h2>
+        </summary>
+        <div class="content box">
+          {% include "html1/module.html" %}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
