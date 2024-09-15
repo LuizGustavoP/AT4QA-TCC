@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../static/styles/base.css">
+    {% block style %}{% endblock %}
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+  </head>
+  <body>
+    <div class="rootContainer">
+
+      <div class="headerMenu">
+        <div class="headerLogo">
+          <img src="{{ url_for('static', filename='images/opus_software_logo.png') }}"> <span>AT4QA Project <br> by OpusSoftware </span>
+        </div>
+        <div class="headerButtons">
+          <a href="{{url_for('homepage')}}" class="buttons"><b>Home</b></a>
+          <a href="{{url_for('test_builder')}}" class="buttons"><b>Tester</b></a>
+          <a href="{{url_for('editor')}}" class="buttons"><b>Editor</b></a>
+          <a href="{{url_for('generator')}}" class="buttons"><b>Generator</b></a>
+          <a href="{{url_for('account')}}" class="buttons"><b>Account</b></a>
+        </div>
+      </div>
+
+      <main>
+          {% block content %}
+          {% endblock %}
+      </main>
+
+      <footer>
+        <p> 2024 AT4QA Project by OpusSoftware</p>
+      </footer>
+    </div>
+  </body>
+</html>

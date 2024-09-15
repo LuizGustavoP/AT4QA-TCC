@@ -8,3 +8,9 @@ venv
 report.html
 .report.json
 .vscode/
+instance/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+<div class="homeContent">
+  Welcome to the AT4QA Project!
+  <br>
+  Here you can generate test cases, edit them, and test them.
+  <br>
+  For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+  <br>
+  To execute the test cases, visit our <a href="{{url_for('test_builder')}}"> tester </a> page. 
+  <br>
+  For editing your feature file, you can visit our <a href="{{url_for('editor')}}"> editor </a> page.
+</div>
+{% endblock %}

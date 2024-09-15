@@ -1,0 +1,1046 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="../static/styles/glossary.css">
+{% endblock %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+<div class="glossaryContainer">
+
+  <h1>Generic statement glossary</h1>
+
+  The following statements can be used in any order, and in any scenario step (*given*, *when* or *then*).
+  It is as such so that any test case can be implemented in a more flexible way, allowing for a more dynamic and modular test case design.
+  Here you will find a list of all the generic statements that can be used in the test cases, as well as their descriptions and examples:
+  <p>
+
+  <hr>
+  <div class="statementGroup">
+
+    <h2>General API Funcionality</h2>
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Calling a Web API</h3>
+      
+      <span>Statement:</span>
+        the API with method "&lt;method&gt;" is called on the endpoint "&lt;url&gt;" with headers "&lt;headers&gt;", parameters "&lt;params&gt;" and payload "&lt;payload_api&gt;"
+      <p>
+
+      <span>Description:</span>
+      Calls an API with the specified method, endpoint, headers, parameters and payload.
+      <p>
+
+      <span>Parameter(s):</span>
+      <p>
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> method </td>
+          <td> GET | POST | PUT | PATCH | DELETE </td>
+          <td> HTTP method of the request. </td>
+        </tr>
+        <tr>
+          <td> url </td>
+          <td> String </td>
+          <td> Endpoint url of the Web API being called. </td>
+        </tr>
+        <tr>
+          <td> headers </td>
+          <td> JSON | omitted </td>
+          <td> When present insert a JSON string, otherwise use the word "omitted". </td>
+        </tr>
+        <tr>
+          <td> params </td>
+          <td> JSON | omitted </td>
+          <td> Send optional parameters in JSON format in this field, when necessary. If not, inform "omitted". </td>
+        </tr>
+        <tr>
+          <td> payload_api </td>
+          <td> JSON | omitted </td>
+          <td> Send the payload in JSON format, when necessary. If not, inform "omitted". </td>
+        </tr>
+      </table>
+      <p>
+      <span>Example(s):</span>
+      <p>
+      <ul>
+        <li>And the API with method "POST" is called on the endpoint "http://website.com" with headers "omitted", parameters "omitted" and payload "{bodyInfo: "info"}"</li>
+        <li>Then the API with method "GET" is called on the endpoint "http://website.com" with headers "{Accept: OK}", parameters "{id: 2}" and payload "omitted"</li>
+      </ul>
+      <p>
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Check the status code of the last API call</h3>
+      
+      <span>Statement:</span>
+      the API will return "&lt;status_code&gt;"
+      <p>
+
+      <span>Description:</span>  
+      Validates the status code of the last API call.
+      <p>
+
+      <span>Parameter(s)</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> status_code </td>
+          <td> Number </td>
+          <td> Expected status code. </td>
+        </tr>
+      </table>
+      <p>
+
+      <span>Example(s):</span>
+      <p>
+      <ul>
+        <li>And the API will return "200"</li>
+        <li>Then the API will return "201"</li>
+      </ul>
+      <p>
+    </div>
+      
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Check specific fields in the response of the last API call</h3>
+      
+      <span>Statement:</span>
+      the value of the field(s) "&lt;api_returned_field&gt;" present in "&lt;api_return_origin&gt;" of the API response has the value(s) "&lt;comparison_type&gt;" to "&lt;api_response_expected_values&gt;" respectively
+      <p>
+      
+      <span>Description:</span>  
+      Validates if the values of the fields returned by the API are equal to the expected values.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> api_returned_field </td>
+          <td> String </td>
+          <td> Names of the fields returned by the API whose values will be compared to the expected values. When comparing more than one field, the names should be separated by double at symbols ("@@"). If the source of the value is the body of the API response, the entire  path of the field must be given, considering the fields of type array. </td>
+        </tr>
+        <tr>
+          <td> api_return_origin </td>
+          <td> body | header </td>
+          <td> Source of the fields returned by the API whose values will be compared to the expected values.<br />If "body", it indicates that the fields to be analyzed come from the response body.<br />If "header", it indicates that the fields to be analyzed come from the response header. </td>
+        </tr>
+        <tr>
+          <td> comparison_type</td>
+          <td> equal | greater or equal | less or equal | different </td>
+          <td> The type of comparison that will be performed, in relation to the "api_response_expected_values" parameter. </td>
+        </tr>
+        <tr>
+          <td> api_response_expected_values </td>
+          <td> String </td>
+          <td> List of expected values that will be compared to the values of the parameterized fields in the API response. The comparisons will be positional in relation to the fields defined in the "api_returned_field" parameter. In other words, the first element of "api_returned_field" should have the value of "api_response_expected_values", and so on. For a list of values with more than one element, separate the values with double at symbols ("@@"). </td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And the value of the field "data.test" present in the "body" of the API response has the value "equal" to "123"</li>
+        <li>Then the value of the field "data.test" present in the "body" of the API response has the value "greater or equal" to "123"</li>
+      </ul>
+      <p>
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Check the presence or absence of specific fields in the response of the last API call</h3>
+    
+      <span>Statement:</span>
+      the field(s) "&lt;api_returned_field&gt;" is(are) "&lt;field_situation&gt;" in the "&lt;api_return_origin&gt;" of the API response
+      <p>
+
+      <span>Description:</span>
+      Validates the existence of specific fields in the response of the last API call.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> api_returned_field </td>
+          <td> String </td>
+          <td> Names of the fields returned by the API whose existence is to be verified. When verifying the existence of more than one field, the names must be separated by double at symbols ("@@"). If the source of the value is the body of the API response, the entire  path of the field must be given, considering the fields of type array. </td>
+        </tr>
+        <tr>
+          <td> field_situation </td>
+          <td> present | absent </td>
+          <td> When "present", it will validate if the fields defined in "api_returned_field" were found in the response of the last API call made. <br /> When "absent", it will validate if the fields defined in "api_returned_field" are not present in the response of the last API call made. </td>
+        </tr>
+        <tr>
+          <td> api_return_origin </td>
+          <td> body | header </td>
+          <td> Source of the fields returned by the API whose existence is to be verified. <br /> If "body", it indicates that the fields to be analyzed come from the response body. <br /> If "header", it indicates that the fields to be analyzed come from the response header. </td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And the field(s) "data" is(are) "present" in the "header" of the API response</li>
+        <li>And the field(s) "data.test" is(are) "absent" in the "body" of the API response</li>
+      </ul>
+      <p>
+    </div> 
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Check the values of fields returned in an API call located in an unordered structure</h3>
+      
+      <span>Statement:</span>  
+      the value of field "&lt;api_returned_field&gt;" located on the body of the API response in an unordered structure that has the field(s) "&lt;api_related_fields&gt;" with value(s) "&lt;api_related_values&gt;" has value equal to "&lt;api_returned_expected_values&gt;"
+      <p>
+      
+      <span>Description:</span>  
+      Validates if the values of the parameterized fields returned by the last API called are equal to the expected values, taking into account a value contained in an unordered structure like an array.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> api_returned_field </td>
+          <td> String </td>
+          <td> Contains the name or path of the field in the API that you want to store, where the unordered structure should be denoted with the syntax "[?]". <br /> The path "data[?].name", for example, aims to store the "name" of some data, which has other identifying values that will be passed in the parameters "api_related_fields" and "api_related_values". </td>
+        </tr>
+        <tr>
+          <td> api_related_fields </td>
+          <td> String </td>
+          <td> Contains the name or path of the field that will be used as an identifier for the value we want to find. If there are multiple levels of unordered structures, each level should be separated by "@@". If multiple values are needed as identifiers at the same level, each value should be separated by "&&&". </td>
+        </tr>
+        <tr>
+          <td> api_related_values </td>
+          <td> String </td>
+          <td> Contains the expected values of the fields that will be used as identifiers in the "api_related_fields" parameter. If there are multiple identifier values at the same level, each value should be separated by "&&&". In the case of multiple levels of unordered structures, each level should be separated by "@@". </td>
+        </tr>
+        <tr>
+          <td> api_returned_expected_values </td>
+          <td> String </td>
+          <td> Expected value to be compared with the value returned by the API in the field passed by the "api_returned_field" parameter. </td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And the value of field <code>data[?].name</code> located on the body of the API response in an unordered structure that has the field(s) <code>id&&&class</code> with value(s) <code>01&&&A2</code> has value equal to <code>John</code></li>
+        <li>And the value of field <code>data.dataGroup.groupTypes[?].groupId[?].name</code> located on the body of the API response in an unordered structure that has the field(s) <code>type&&&id@@surname</code> with value(s) <code>01&&&532@@Smith</code> has value equal to <code>Albert</code></li>
+      </ul>
+      <p>
+    </div>
+  </div>
+
+    <hr>
+
+  <div class="statementGroup">
+
+    <div class="statementInfo">
+      <h3>Pause the test execution</h3>
+      
+      <span>Statement:</span>
+      the test waits "&lt;time_in_seconds&gt;" seconds
+      <p>
+      
+      <span>Description:</span>
+      Pauses the execution of the current test for the specified period of time.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> time_in_seconds </td>
+          <td> Number </td>
+          <td> Amount of waiting time in seconds. </td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):</span>
+      <p>
+      <ul>
+        <li>And the test waits "180" seconds</li>
+      </ul>
+      <p>
+    </div>
+      
+  </div>
+
+  <hr>
+
+  <div class="statementGroup" >
+    
+    <h2>Value Generators</h2>
+    <hr>
+    
+    <div class="statementInfo">
+      <h3>UUID Generator</h3>
+      
+      <span>Statement:</span>
+      a new uuid will be generated and stored in the field named "&lt;storage_field&gt;"
+      <p>
+      
+      <span>Description:</span>
+      Generates a random UUID and stores the generated value in the variable with the specified name.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+      
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> storage_field </td>
+          <td> String </td>
+          <td> Name of the variable in which the generated UUID will be stored.</td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And a new uuid will be generated and stored in the field named "generatedUUID"</li>
+      </ul>
+      <p>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Time generator</h3>
+      
+      <span>Statement:</span>  
+      a time "&lt;time&gt;" will be generated in the format "&lt;format&gt;" and stored in a field named "&lt;storage_field&gt;"
+      <p>
+      
+      <span>Description:</span>  
+      Generates a time with a parameterized format and stores the generated value in the variable with the parameterized name.
+      <p>
+      
+      <span>Parameter(s):</span>
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> time </td>
+          <td> String </td>
+          <td> Moment at which the time will be generated, can be "current", "{seconds} ago" or "{seconds} ahead" </td>
+        </tr>
+        <tr>
+          <td> format </td>
+          <td> String </td>
+          <td> Format in which the time will be generated, this value can be "epoch", for generating epoch values, datetime values as in "datetime@@%d/%m/%y %H:%M:%S.%f", which can have its format changed by changing the order of the parameters after "@@", the word ""zuluex"" can be passed to generate a time in Zulu format without the 'z' at the end, or the word ""zuluz"" can be passed to generate a time in zulu format with 'z' at the end. </td>
+        </tr>
+        <tr>
+          <td> storage_field </td>
+          <td> String </td>
+          <td> Name of the variable in which the generated time will be stored. </td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):</span>
+      <ul>
+        <li>And a time "current" will be generated in the format "epoch" and stored in a field named "time"</li>
+        <li>And a time "60 ahead" will be generated in the format "datetime@@%d/%m/%y %H:%M:%S.%f" and stored in a field named "time"</li>
+        <li>And a time "60 ago" will be generated in the format "zuluex" and stored in a field named "time"</li>
+      </ul>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>CRC Generator</h3>
+      
+      <span>Statement:</span>  
+      a CRC value is calculated with the polynomial "&lt;poly&gt;", initial value "&lt;init&gt;" e XOR value "&lt;xorValue&gt;", for the value stored in the field "&lt;value_field&gt;", and will be stored as a hexdigest in the field "&lt;storage_field&gt;"
+      <p>
+        
+      <span>Description:</span>  
+      Generate the CRC encoding according to the parameterized values for a stored variable, and store the generated CRC hexdigest in the "storage_field" variable.
+      <p>
+
+      <span>Parameter(s):</span>  
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> poly </td>
+          <td> String </td>
+          <td> Polynomial that will be used to perform the CRC. </td>
+        </tr>
+        <tr>
+          <td> init </td>
+          <td> String </td>
+          <td> Initial value from which the CRC will be calculated. </td>
+        </tr>
+        <tr>
+          <td> xorValue </td>
+          <td> String </td>
+          <td> Final value with which XOR will be used in CRC. </td>
+        </tr>
+        <tr>
+          <td> value_field </td>
+          <td> String </td>
+          <td> Value with which the CRC encoding will be performed, the value will be interpreted with ASCII encoding. </td>
+        </tr>
+        <tr>
+          <td> storage_field </td>
+          <td> String </td>
+          <td> Name of the variable in which the generated CRC hexdigest will be stored. </td>
+        </tr>
+      </table>
+
+      <p>
+      <span>Example(s):</span>
+      <p>
+      <ul>
+        <li>And a CRC value is calculated with the polynomial "0x0011", initial value "0xDDDD", and XOR value "0xAAAA", for the value stored in the field "crcValue", and will be stored as a hexdigest in the field "calculatedCRC"</li>
+      </ul>
+      <p>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Random string generator</h3>
+      
+      <span>Statement:</span>  
+      a random string of size "&lt;string_size&gt;" will be generated and stored in a field named "&lt;storage_field&gt;"
+      <p>
+      
+      <span>Description:</span>  
+      Generates a random string of a parameterized size and stores the generated string in the variable with the parameterized name.
+      <p>
+      
+      <span>Parameter(s):</span>  
+      <p>
+      
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> string_size </td>
+          <td> Number </td>
+          <td> Size of the random string to be generated </td>
+        </tr>
+        <tr>
+          <td> storage_field </td>
+          <td> String </td>
+          <td> Name of the field in which the generated string will be stored.</td>
+        </tr>
+      </table>
+
+      <p>
+      <span>Example(s): </span>
+      <p>
+      <ul>
+        <li>And a random string of size "15" will be generated and stored in a field named "randomString"</li>
+        <li>And a random string of size "30" will be generated and stored in a field named "randomString"</li>
+        <li>And a random string of size "8" will be generated and stored in a field named "randomString"</li>
+      </ul>
+      <p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="statementGroup">
+
+    <h2>Database Interactions</h2>
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Define a database connection</h3>
+
+      <span>Statement:</span>
+      a database connection named "&lt;name&gt;" with host "&lt;host&gt;", port "&lt;port&gt;", user "&lt;user&gt;", password "&lt;password&gt;" and database "&lt;database&gt;" is defined
+      <p>
+
+      <span>Description:</span>
+      Defines a connection to a database, specifying the host, port, user, password, and database name.
+      <p>
+
+      <span>Parameter(s):</span>
+      <p>
+      
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> name </td>
+          <td> String </td>
+          <td> Name of the connection. </td>
+        </tr>
+        <tr>
+          <td> host </td>
+          <td> String </td>
+          <td> Host of the database. </td>
+        </tr>
+        <tr>
+          <td> port </td>
+          <td> Number </td>
+          <td> Port of the database. </td>
+        </tr>
+        <tr>
+          <td> user </td>
+          <td> String </td>
+          <td> User of the database. </td>
+        </tr>
+        <tr>
+          <td> password </td>
+          <td> String </td>
+          <td> Password of the database. </td>
+        </tr>
+        <tr>
+          <td> database </td>
+          <td> String </td>
+          <td> Name of the database. </td>
+        </tr>
+      </table>
+
+      <p>
+      <span>Example(s):</span>
+      <p>
+      
+      <ul>
+        <li>And a database connection named "students_local" with host "localhost", port "5432", user "admin", password "admin" and database "students" is defined</li>
+        <li>And a database connection named "users_local" with host "localhost", port "5432", user "admin", password "admin" and database "users" is defined</li>
+      </ul>
+      <p>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+      <h3>Check value of a column in a database table</h3>
+      
+      <span>Statement:</span>  
+      on database "&lt;database_name&gt;" on table "&lt;database_table&gt;" the column "&lt;database_expected_column&gt;" must contain the value "&lt;equals_or_differs&gt;" "&lt;expected_value&gt;", in the row where the column "&lt;database_column_where&gt;" of type "&lt;database_column_where_type&gt;" has the value "&lt;where_value&gt;" from the field "&lt;field_name&gt;" originated from "&lt;field_origin&gt;"
+      <p>
+
+      <span>Description:</span>  
+      Checks if the content of a column in a specific table of a database is the expected value, using parameterization for the database, table, expected column, comparison column, and field that contains the expected value.
+      <p>
+
+      <span>Parameter(s):</span>  
+      <p>
+
+      <table class="paramTable">
+        <tr>
+          <th> Name </th>
+          <th> Possible values </th>
+          <th> Description </th>
+        </tr>
+        <tr>
+          <td> database_name </td>
+          <td> String </td>
+          <td> Name of the database where the query should be performed.</td>
+        </tr>
+        <tr>
+          <td> database_table </td>
+          <td> String </td>
+          <td> Name of the table where the query should be performed. </td>
+        </tr>
+        <tr>
+          <td> database_expected_column </td>
+          <td> String </td>
+          <td> Name of the column in the database table to be compared. This parameter can be used on a column of type "JSON" when you want to compare the value of a specific field in the JSON. To do this, simply define this parameter as "column_name>-> "JSON_field_path". For example: "data->user.name". In this case, the "expected_value" would be compared with the value of the "name" field, which is inside the "user" object in the "data" column. </td>
+        </tr>
+        <tr>
+          <td> equals_or_differs </td>
+          <td> equals to | differs from </td>
+          <td> When "equals to", a comparison of equality will be made between the value returned by the query and the one parameterized in the "expected value" field.<br />When "differs from", it will be analyzed if the value returned by the query is different from the value defined in the "expected_value" parameter.</td>
+        </tr>
+        <tr>
+          <td> expected_value </td>
+          <td> String | equal to where | empty </td>
+          <td> What is the expected value in the column.<br />If it is a string, it will check if the value returned by the query is equal to the value of this parameter.<br />When "equals to where", the expected value is the same value defined in the "where_value" parameter described below.<br />When "empty", it will analyze if the select returned "NULL" for the query. </td>
+        </tr>
+        <tr>
+          <td> database_column_where </td>
+          <td> String </td>
+          <td> Name of the column in the database table that will be used for comparison (where clause) in the generated selection. </td>
+        </tr>
+        <tr>
+          <td> database_column_where_type </td>
+          <td> uuid | varchar | number </td>
+          <td> Type of the comparison column. This parameter is necessary for the selection command to be constructed correctly, as the type of the comparison variable influences how the query should be written. </td>
+        </tr>
+        <tr>
+          <td> where_value </td>
+          <td> String | equals </td>
+          <td> What is the value to be used in the comparison of the selection command.<br />If it is a string, the parameterized value will be used in the comparison query (where clause).<br />When "equals", it indicates that the value to be used should be defined in the "field_name" parameter described below. </td>
+        </tr>
+        <tr>
+          <td> field_name </td>
+          <td> String | omitted </td>
+          <td> Name of the field where the value to be used in the comparison will be obtained.<br />If it is a string, it indicates the name of the field in question.<br />When "omitted", it indicates that the value will not come from a field, but from the "where_value" variable described above. </td>
+              </tr>
+              <tr>
+          <td> field_origin </td>
+          <td> response header | response body | feature file </td>
+          <td> Where the field defined in the "field_name" parameter should be retrieved from.<br />If "response header", the field will be retrieved from the headers object of the response of the last executed API.<br />If "response body", the field will be retrieved from the body object of the response of the last executed API.<br />If "feature file", it indicates that the value of the field will be the value defined in the "where_value" parameter defined above. </td>
+              </tr>
+        </table>
+
+      <p>
+      <span>Example(s):</span>
+      <p>
+
+      <ul>
+        <li>Check if the value of the "name" column in the user database is equal to "John". Using the "class" column as the comparison base and the content of the "Accept" header from the previous API call as the comparison value.
+          <ul>
+            <li>Then on database "students" on table "user" the column "name" must contain the value "equals to" "John", in the row where the column "class" of type "number" has the value "equals" from the field "Accept" originated from "response header"</li>
+          </ul>
+        </li>
+        <li>Check if the value of the "class" column in the user database is equal to the value present in the "Accept" header from the previous API call.  
+          <ul>
+            <li>Then on database "students" on table "user" the column "class" must contain the value "equals to" "equals to where", in the row where the column "class" of type "number" has the value "equals" from the field "Accept" originated from "response header"</li>
+          </ul>
+        </li>
+        <li>Check if the value of the "class" column in the user database is equal to "3" which is defined in the examples table of the feature file.  
+          <ul>
+            <li>Then on database "students" on table "user" the column "class" must contain the value "equals to" "equals to where", in the row where the column "class" of type "number" has the value "3" from the field "omitted" originated from "feature file"</li>
+          </ul>
+        </li>
+        <li>Check if the value of the "class" column in the user database is not empty. Using the "class" column as the comparison base and the content of the "Accept" header from the previous API call as the comparison value.  
+          <ul>
+            <li>Then on database "students" on table "user" the column "class" must contain the value "differs from" "empty", in the row where the column "class" of type "number" has the value "equals" from the field "Accept" originated from "response header"</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Update value of a column in a database table</h3>
+      
+      <span>Statement:</span>  
+      on database "&lt;database_name&gt;" on table "&lt;database_table&gt;" the column "&lt;update_column&gt;" of type "&lt;update_column_type&gt;" must update the value of field "&lt;update_field_column&gt;" to the value "&lt;update_value&gt;" of type "&lt;update_value_type&gt;", in the row where the column "&lt;database_column_where&gt;" of type "&lt;database_column_where_type&gt;" has the value "&lt;where_value&gt;" from the field "&lt;field_name&gt;" originated from "&lt;field_origin&gt;"
+      <p>
+        
+      <span>Description:</span>  
+      Update the content of a column in a specific table of a database, parameterizing the column to update, comparison column for the command, and the value to be used in the update.
+      <p>
+      
+      <span>Parameter(s):</span>  
+      <p>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Possible values</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>database_name</td>
+          <td>String</td>
+          <td>Name of the database where the update should be performed.</td>
+        </tr>
+        <tr>
+          <td>database_table</td>
+          <td>String</td>
+          <td>Name of the database table where the update should be performed.</td>
+        </tr>
+        <tr>
+          <td>update_column</td>
+          <td>String</td>
+          <td>Name of the column in the database table where the value update should be performed.</td>
+        </tr>
+        <tr>
+          <td>update_column_type</td>
+          <td>uuid | varchar | number | JSON</td>
+          <td>Type of the update column. This parameter is necessary for the update command to be constructed correctly, as the type of the comparison variable influences how the query should be written.</td>
+        </tr>
+        <tr>
+          <td>update_field_column</td>
+          <td>String | omitted</td>
+          <td>If the "update_column_type" is "JSON", this parameter is used to specify which field of the JSON should be updated. If the type is not JSON, this parameter should be "omitted".</td>
+        </tr>
+        <tr>
+          <td>update_value</td>
+          <td>String</td>
+          <td>Value to which the field should be updated</td>
+        </tr>
+        <tr>
+          <td>update_value_type</td>
+          <td>uuid | varchar | number</td>
+          <td>What is the type of the value provided in the "update_value" parameter. This parameter is necessary for the update command to be constructed correctly, as the type of the comparison variable influences how the query should be written.</td>
+        </tr>
+        <tr>
+          <td>database_column_where</td>
+          <td>String</td>
+          <td>Name of the column in the database table that will be used for comparison (where clause) in the generated update.</td>
+        </tr>
+        <tr>
+          <td>database_column_where_type</td>
+          <td>uuid | varchar | number</td>
+          <td>Type of the comparison column. This parameter is necessary for the update command to be constructed correctly, as the type of the comparison variable influences how the query should be written.</td>
+        </tr>
+        <tr>
+          <td>where_value</td>
+          <td>String | equal</td>
+          <td>What is the value to be used in the comparison of the update command.<br />If it is a string, the parameterized value will be used in the comparison query (where clause).<br />When "equals", it indicates that the value to be used should be defined in the "field_name" parameter described below.</td>
+        </tr>
+        <tr>
+          <td>field_name</td>
+          <td>String | omitted</td>
+          <td>Name of the field where the value to be used in the comparison will be obtained.<br />If it is a string, it indicates the name of the field in question.<br />When "omitted", it indicates that the value will not come from a field, but from the "where_value" variable described above.</td>
+        </tr>
+        <tr>
+          <td>field_origin</td>
+          <td>response header | response body | feature file</td>
+          <td>Where the field defined in the "field_name" parameter should be searched.<br />If "response header", the field will be searched in the headers object of the last executed API response.<br />If "response body", the field will be searched in the body object of the last executed API response.<br />If "feature file", it indicates that the field value will be the value defined in the "where_value" parameter defined above.</td>
+        </tr>
+      </table>
+
+      <p>
+      <span>Example(s):</span>
+      <p>
+
+      <ul>
+        <li>Update the value of the "name" field in the "user" column of the "students" table in the "school" database to the value "Albert"
+          <ul>
+            <li>And on database "school" on table "students" the column "user" of type "string" must update the value of field "name" to the value "Albert" of type "string", in the row where the column "id" of type "varchar" has the value "igual" from the field "header" originated from "header"</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Run an arbitrary query in a database</h3>
+      
+      <span>Statement:</span>  
+      on database "&lt;database_name&gt;" run query "&lt;query&gt;" whose expected returned value must be equal to "&lt;expected_value&gt;"
+      <p>
+        
+      <span>Description:</span>  
+      Run the query passed as a parameter in the parameterized database.
+      <p>
+      
+      <span>Parameter(s):</span>  
+      <p>
+        
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Possible values</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>database_name</td>
+          <td>String</td>
+          <td>Name of the database where the query should be executed.</td>
+        </tr>
+        <tr>
+          <td>query</td>
+          <td>String</td>
+          <td>Query that should be executed. Supports "select", "update", and "delete" commands, but they must always include the "where" clause.</td>
+        </tr>
+        <tr>
+          <td>expected_value</td>
+          <td>String | omitted</td>
+          <td>When the parameterized query is of type "update" or "delete", this value should be filled as "omitted".<br />In queries of type "select", it can be used to validate if the return value of the command is equal to the value defined in this parameter. Important: The "select" command that will be executed will return the value of only one column and one tuple from the database that meets the condition criteria, it does not support the return of values from multiple columns or multiple tuples.</td>
+        </tr>
+      </table>
+
+      <p>
+      <span>Example(s):</span>
+      <p>
+
+      <ul>
+        <li>And on database "students" run query "SELECT name FROM user where id  = '3';" whose expected returned value must be equal to "John"</li>
+        <li>And on database "students" run query "DELETE FROM user where id = '2'" whose expected returned value must be equal to "omitted"</li>
+      </ul>
+      <p>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="statementGroup">
+
+    <h2>Storage</h2>
+    <hr>
+
+    This section refers to storing values in a storage variable that exists at runtime only. These values can be stored using the following statements:
+    <p>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Store the response of an API</h3>
+      
+      <span>Statement:</span>  
+      the value of field "&lt;api_field&gt;" from "&lt;field_origin&gt;" of the response will be stored on field named "&lt;storage_field&gt;"
+      <p>
+        
+      <span>Description:</span>  
+      In some scenarios, it is necessary to store a certain value returned by an API call to use it in the subsequent test in another statement. The purpose of this statement is precisely that: to store a returned value in a variable whose name is defined via a parameter.
+      <p>
+      
+      <span>Parameter(s):</span>  
+      <p>
+        
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Possible values</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>api_field</td>
+          <td>String</td>
+          <td>Contains the name of the API field that should be stored.<br />If the field originates from the body of the API response, the entire path must be defined, considering fields of type array. For example, the path "data.classes.students[0].parents[0].name" aims to store the "name" of the first "parent", of the first "student" defined within the "class", which is located within the root "data".</td>
+        </tr>
+        <tr>
+          <td>field_origin</td>
+          <td>body | header</td>
+          <td>Indicates where to locate the field that you want to store: in the "body" or "header" of the response from the last API call made.</td>
+        </tr>
+        <tr>
+          <td>storage_field</td>
+          <td>String</td>
+          <td>Name of the variable that will be created and will store the value present in the "api_field" field.</td>
+        </tr>
+      </table>
+        
+      <p>
+      <span>Example(s):</span>
+      <p>
+      <ul>
+        <li>And the value of field "data.classes.students[0].parents[0].name" from "body" of the response will be stored on field named "name"</li>
+        <li>And the value of field "data.classes.students[0].siblings[0].age" from "body" of the response will be stored on field named "age"</li>
+      </ul>
+      <p>
+
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Store the response of an API for unordered data structures</h3>
+      
+      <span>Statement:</span>  
+      the value of field "&lt;api_returned_field&gt;" present in the API body response related to the field(s) "&lt;api_related_fields&gt;" with value(s) "&lt;api_related_values&gt;" stored in field named "&lt;storage_field&gt;"
+      <p>
+        
+      <span>Description:</span>  
+      In some scenarios, it is necessary to store a certain value returned by an API call to use it in the subsequent test in another statement. However, there are cases where we do not know exactly in which position of an unordered structure, such as an array, this value is located. Therefore, the purpose of this statement is precisely that: to store a returned value in a variable where we do not know exactly in which position of a certain structure it is located, using adjacent values as identifiers to find it.
+      <p>
+        
+      <span>Parameter(s):</span>
+      <p>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Possible values</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>api_returned_field</td>
+          <td>String</td>
+          <td>Contains the name or path of the API field that you want to store, where the unordered structure should be denoted with the syntax "[?]". For example, the path "students[?].name" aims to store the "name" of a student that has other identifying values, which will be passed in the "api_related_fields" and "api_related_values" parameters.</td>
+        </tr>
+        <tr>
+          <td>api_related_fields</td>
+          <td>String</td>
+          <td>Contains the name or path of the field that will be used as an identifier to find the desired value. If there are multiple levels of nested unordered structures, each level should be separated by "@@". If multiple values are needed as identifiers at the same level, each value should be separated by "&&&".</td>
+        </tr>
+        <tr>
+          <td>api_related_values</td>
+          <td>String</td>
+          <td>Contains the expected values of the fields that will be used as identifiers in the "api_related_fields" parameter. If there are multiple identifier values at the same level, each value should be separated by "&&&". In the case of multiple levels of nested unordered structures, each level should be separated by "@@".</td>
+        </tr>
+        <tr>
+          <td>storage_field</td>
+          <td>String</td>
+          <td>Name of the variable that will be created and will store the value present in the "api_returned_field" field.</td>
+        </tr>
+      </table>
+        
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And the value of field "students[?].name" located on the body of the API response in an unordered structure that has the field(s) "id" with value(s) "001" stored in field named "name"</li>
+        <li>And the value of field "data.school.classes[?].students[?].name" located on the body of the API response in an unordered structure that has the field(s) "id&&&meanGrades@@age with value(s) "001&&&10@@15" stored in field named "name"</li>
+      </ul>
+      <p>
+    </div>
+
+    <hr>
+
+    <div class="statementInfo">
+
+      <h3>Store the response of a database query</h3>
+      
+      <span>Statement:</span>  
+      a value of database "&lt;database_name&gt;" is adquired by the query "&lt;query&gt;" and stored in field named "&lt;storage_field&gt;"
+      <p>
+      
+      <span>Description:</span>  
+      In some scenarios, it is necessary to store a certain value returned by a query to a specific database, in order to use it in another statement. The purpose of this statement is precisely that: to store a value, or a composite structure of values (for cases where the select retrieves more than one value), returned in a variable whose name is defined via a parameter.
+      <p>
+      
+      <span>Parameter(s):</span>  
+      <p>
+      
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Possible values</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>database_name</td>
+          <td>String</td>
+          <td>Name of the database where the query should be executed.</td>
+        </tr>
+        <tr>
+          <td>query</td>
+          <td>String</td>
+          <td>Query that should be executed. Supports only the "select" command and must always include the "where" clause.</td>
+        </tr>
+        <tr>
+          <td>storage_field</td>
+          <td>String</td>
+          <td>Name of the variable that will be created and will store the value returned by the query "query".</td>
+        </tr>
+      </table>
+      
+      <p>
+      <span>Example(s):  </span>
+      <p>
+      <ul>
+        <li>And a value of database "school" is adquired by the query "select meanGrade from students where name = 'John' order by age desc" and stored in field named "grade"</li>
+        <li>And a value of database "school" is adquired by the query "select meanGrade from students where name = 'Joseph' and stored in field named "grade"</li>
+      </ul>
+      <p>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="generalInfo">
+
+    <h2>How to use the stored values</h2>
+
+    <hr>
+
+    <p>
+    Once a value is stored in the desired variable, it can be used in subsequent API call statements whenever needed. To do this, simply indicate the variable name enclosed in hashtags ("#") in the feature file parameters. The automation tool will replace the variable name with its stored value during test execution.
+    The replacement can be done in parameters that represent:
+    <p>
+
+    <ul>
+      <li>Path</li>
+      <li>Payload</li>
+      <li>Headers</li>
+      <li>Params</li>
+      <li>Expected values in comparison statements</li>
+    </ul>
+
+    <p>
+    For example, for a simple value: A path parameter defined as "/dogFacts/fact/#factNumber#" will be replaced with the previously stored value during test execution, resulting in something like "/dogFacts/fact/01".
+    For example, for a composite value: A path parameter defined as "/dogFacts/fact/#factNumber[0]#" will be replaced with the first value from the stored structure during test execution, resulting in something like "/dogFacts/fact/01".
+
+    <p>
+    In the case of composite structures, the order of the indexes will be the same as the values returned by the "select" query.
+  </div>
+</div>
+{% endblock %}
