@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="../static/styles/agbdd.css">
+<section class="agbddContainer">
+
+  <h1>What is AGBDD?</h1>
+
+  AGBDD stands for Autonomous Generic Behaviour Driven Development, it is a conceptual expansion of BDD
+  (Behaviour Driven Development), that aims to provide independence to the QA team, by allowing them to
+  define their test cases with generic descriptions of the expected behaviour of the system, without the
+  need of a developer to implement the test cases. This is achieved by using a generic language that can
+  be interpreted by the system, and then executed as a test case. 
+  <p>
+  This allows the QA team to define their test cases in a more abstract way, without the need to know
+  the specifics of the system, and then the system can interpret the test cases and execute them as needed.
+
+  <p>
+
+</section>
+{% endblock %}

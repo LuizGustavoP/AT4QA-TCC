@@ -5,21 +5,27 @@
 {% endblock %}
 
 {% block content %}
-<div class="builderContent">
-  Welcome to the Test Builder!
-  <br>
-  Here you can execute your test cases with your generic feature file!
-  <br>
-  For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
-  <br>
-  To execute the test cases, upload your feature file here:
-  <form action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file" required>
-    <button type="submit">Upload</button>
-  </form>
-  <a href="{{url_for('test_builder')}}"> tester </a> page. 
-  <br>
-  After uploading, you can execute your test cases here:
-  <a href="{{url_for('test_runner')}}"> tester </a> page.
-</div>
+<link rel="stylesheet" href="../static/styles/test_builder.css">
+<script src="uploadFeature.js"></script>
+<section class="builderContent">
+  <h2>Welcome to the Test Builder!</h2>
+  
+  <p>
+    Here you can execute your test cases with your generic feature file!
+    <br>
+    For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+    <br>
+    To execute the test cases, upload your feature file here:
+  </p>
+
+  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" class="chooseFeatureFilesButton" multiple accept=".feature,.dictionary,.featuremask" required>
+    <p>
+    <button type="submit" class="runFeatureFiles">Run</button>
+  </form> 
+  
+  <section id="fileList">
+
+  </section>
+</section>
 {% endblock %}

@@ -1,0 +1,51 @@
+.generatorContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.chooseDocumentationButton{
+  background-color: #888888;
+  color: black;
+  box-shadow: 4px 4px 4px #888888;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+}
+
+.uploadDocumentation{
+  background-color: #bc1749;
+  color: white;
+  box-shadow: 4px 4px 4px #888888;
+  border-radius: 5px;
+  width: 100px;
+  height: 50px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.file-name {
+  margin-right: 10px;
+}
+.loading-icon {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.checkmark {
+  color: green;
+  font-size: 20px;
+}

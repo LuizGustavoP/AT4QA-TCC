@@ -3,8 +3,12 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
+h1{
+  text-align: center;
+  padding-top:2rem;
+}
 
-h2, h1{
+h2{
   text-align: center;
 }
 
@@ -28,10 +32,19 @@ tr:nth-child(odd) {
 
 .glossaryContainer {
   margin: 0 auto;
-  width: 70%;
+  width: 75%;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  box-shadow: 4px 4px 4px 4px rgb(0, 0, 0, 0.1);
 }
 
 span{
   font-weight: 700;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.generalInfo{
+  padding-bottom: 2rem;
 }

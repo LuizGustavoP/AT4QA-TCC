@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect
 import os
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'features'
 app.config["FEATURE_FILE_FOLDER"] = "features"
 app.config["ALLOWED_FILE_EXTENSIONS"] = ["feature", "mask", "dictionary", "yaml", "json"]
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(app.config["FEATURE_FILE_FOLDER"]):
   os.makedirs(app.config["FEATURE_FILE_FOLDER"])
@@ -16,6 +18,13 @@ def homepage():
   return render_template(
     'home.html',
     title="Home - AT4QA Project"
+  )
+
+@app.route('/agbdd')
+def agbdd():
+  return render_template(
+    'agbdd.html',
+    title="AGBDD - AT4QA Project"
   )
 
 @app.route('/generator')
@@ -45,6 +54,20 @@ def test_runner():
     'test_runner.html',
     title="Runner - AT4QA Project"
   )
+
+@app.route('/upload_features', methods=['POST'])
+def upload_features():
+    if 'file' not in request.files:
+        return 'No file part', 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return 'No selected file', 400
+
+    if file:
+        filename = file.filename
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return 'File uploaded successfully', 200
 
 @app.route('/glossary')
 def glossary():

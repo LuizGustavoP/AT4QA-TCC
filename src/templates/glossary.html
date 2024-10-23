@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="glossaryContainer">
+<section class="glossaryContainer">
 
   <h1>Generic statement glossary</h1>
 
@@ -19,12 +19,12 @@
   <p>
 
   <hr>
-  <div class="statementGroup">
+  <section class="statementGroup">
 
     <h2>General API Funcionality</h2>
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Calling a Web API</h3>
       
       <span>Statement:</span>
@@ -77,11 +77,11 @@
         <li>Then the API with method "GET" is called on the endpoint "http://website.com" with headers "{Accept: OK}", parameters "{id: 2}" and payload "omitted"</li>
       </ul>
       <p>
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Check the status code of the last API call</h3>
       
       <span>Statement:</span>
@@ -116,11 +116,11 @@
         <li>Then the API will return "201"</li>
       </ul>
       <p>
-    </div>
+    </section>
       
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Check specific fields in the response of the last API call</h3>
       
@@ -171,11 +171,11 @@
         <li>Then the value of the field "data.test" present in the "body" of the API response has the value "greater or equal" to "123"</li>
       </ul>
       <p>
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Check the presence or absence of specific fields in the response of the last API call</h3>
     
       <span>Statement:</span>
@@ -220,11 +220,11 @@
         <li>And the field(s) "data.test" is(are) "absent" in the "body" of the API response</li>
       </ul>
       <p>
-    </div> 
+    </section> 
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Check the values of fields returned in an API call located in an unordered structure</h3>
       
       <span>Statement:</span>  
@@ -274,14 +274,14 @@
         <li>And the value of field <code>data.dataGroup.groupTypes[?].groupId[?].name</code> located on the body of the API response in an unordered structure that has the field(s) <code>type&&&id@@surname</code> with value(s) <code>01&&&532@@Smith</code> has value equal to <code>Albert</code></li>
       </ul>
       <p>
-    </div>
-  </div>
+    </section>
+  </section>
 
     <hr>
 
-  <div class="statementGroup">
+  <section class="statementGroup">
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Pause the test execution</h3>
       
       <span>Statement:</span>
@@ -315,18 +315,18 @@
         <li>And the test waits "180" seconds</li>
       </ul>
       <p>
-    </div>
+    </section>
       
-  </div>
+  </section>
 
   <hr>
 
-  <div class="statementGroup" >
+  <section class="statementGroup" >
     
     <h2>Value Generators</h2>
     <hr>
     
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>UUID Generator</h3>
       
       <span>Statement:</span>
@@ -361,11 +361,11 @@
       </ul>
       <p>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Time generator</h3>
       
       <span>Statement:</span>  
@@ -410,11 +410,11 @@
         <li>And a time "60 ago" will be generated in the format "zuluex" and stored in a field named "time"</li>
       </ul>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>CRC Generator</h3>
       
@@ -470,11 +470,11 @@
       </ul>
       <p>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Random string generator</h3>
       
       <span>Statement:</span>  
@@ -515,17 +515,17 @@
         <li>And a random string of size "8" will be generated and stored in a field named "randomString"</li>
       </ul>
       <p>
-    </div>
-  </div>
+    </section>
+  </section>
 
   <hr>
 
-  <div class="statementGroup">
+  <section class="statementGroup">
 
     <h2>Database Interactions</h2>
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Define a database connection</h3>
 
@@ -588,11 +588,11 @@
       </ul>
       <p>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
       <h3>Check value of a column in a database table</h3>
       
       <span>Statement:</span>  
@@ -691,11 +691,11 @@
         </li>
       </ul>
       <p>
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Update value of a column in a database table</h3>
       
@@ -791,11 +791,11 @@
       </ul>
       <p>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Run an arbitrary query in a database</h3>
       
@@ -842,13 +842,13 @@
         <li>And on database "students" run query "DELETE FROM user where id = '2'" whose expected returned value must be equal to "omitted"</li>
       </ul>
       <p>
-    </div>
+    </section>
 
-  </div>
+  </section>
 
   <hr>
 
-  <div class="statementGroup">
+  <section class="statementGroup">
 
     <h2>Storage</h2>
     <hr>
@@ -858,7 +858,7 @@
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Store the response of an API</h3>
       
@@ -905,11 +905,11 @@
       </ul>
       <p>
 
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Store the response of an API for unordered data structures</h3>
       
@@ -960,11 +960,11 @@
         <li>And the value of field "data.school.classes[?].students[?].name" located on the body of the API response in an unordered structure that has the field(s) "id&&&meanGrades@@age with value(s) "001&&&10@@15" stored in field named "name"</li>
       </ul>
       <p>
-    </div>
+    </section>
 
     <hr>
 
-    <div class="statementInfo">
+    <section class="statementInfo">
 
       <h3>Store the response of a database query</h3>
       
@@ -1010,13 +1010,13 @@
         <li>And a value of database "school" is adquired by the query "select meanGrade from students where name = 'Joseph' and stored in field named "grade"</li>
       </ul>
       <p>
-    </div>
+    </section>
 
-  </div>
+  </section>
 
   <hr>
 
-  <div class="generalInfo">
+  <section class="generalInfo">
 
     <h2>How to use the stored values</h2>
 
@@ -1041,6 +1041,6 @@
 
     <p>
     In the case of composite structures, the order of the indexes will be the same as the values returned by the "select" query.
-  </div>
-</div>
+  </section>
+</section>
 {% endblock %}

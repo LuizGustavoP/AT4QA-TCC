@@ -3,3 +3,29 @@
 {% block title %}
   {{title}}
 {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="../static/styles/generator.css">
+<script src="uploadFeature.js"></script>
+<section class="generatorContent">
+  <h2>Welcome to the Generator!</h2>
+  
+  <p>
+    Here you can generate the base of a Feature File to get a headstart!
+    <br>
+    For more information on the construction of Feature Files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+    <br>
+    To generate your Feature Files, upload your documentation in JSON or YAML format here:
+  </p>
+
+  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" class="chooseDocumentationButton" multiple accept=".yaml,.json" required>
+    <p>
+    <button type="submit" class="generate">Generate Feature File</button>
+  </form> 
+  
+  <section id="fileList">
+
+  </section>
+</section>
+{% endblock %}
