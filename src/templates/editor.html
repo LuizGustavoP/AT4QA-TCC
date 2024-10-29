@@ -3,3 +3,30 @@
 {% block title %}
   {{title}}
 {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="../static/styles/editor.css">
+<script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
+<section class="editorContent">
+
+  <h2>Welcome to the Editor!</h2>
+  
+  <p>
+    Here you can edit your feature files!
+    <br>
+    For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+    <br>
+    To edit your feature file, upload it here:
+  </p>
+
+  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" class="chooseFeatureFilesButton" accept=".feature,.dictionary,.featuremask" required>
+    <p>
+    <button type="submit" class="runFeatureFiles">Edit</button>
+  </form> 
+  
+  <section id="fileList">
+
+  </section>
+</section>
+{% endblock %}

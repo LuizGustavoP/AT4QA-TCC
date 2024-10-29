@@ -60,14 +60,20 @@ def upload_features():
     if 'file' not in request.files:
         return 'No file part', 400
 
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file', 400
+    files = request.files.getlist('file')  # Get all files
 
-    if file:
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return 'File uploaded successfully', 200
+    if len(files) == 0:
+        return 'No selected files', 400
+
+    for file in files:
+        if file.filename == '':
+            return 'No selected file', 400
+
+        if file:
+            filename = file.filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    return 'Files uploaded successfully', 200
 
 @app.route('/glossary')
 def glossary():
@@ -83,25 +89,25 @@ def account():
     title="Account - AT4QA Project"
   )
 
-@app.route('/upload_test', methods=["POST"])
+@app.route('/upload_test', methods=['POST'])
 def upload_test():
-  if request.method == "POST":
-    if request.files:
-      file = request.files["file"]
-      if file.filename == "":
-        print("No filename")
-        return redirect(request.url)
-      if check_file_extension(file.filename):
-        file.save(os.path.join(app.config["FEATURE_FILE_FOLDER"], file.filename))
-        print("File saved")
-        return redirect(request.url)
-      else:
-        print("File not allowed")
-        return redirect(request.url)
-  return render_template(
-    'builder.html',
-    title="Upload File - AT4QA Project"
-  )
+    if 'file' not in request.files:
+        return 'No file part', 400
+
+    files = request.files.getlist('file')  # Get all files
+
+    if len(files) == 0:
+        return 'No selected files', 400
+
+    for file in files:
+        if file.filename == '':
+            return 'No selected file', 400
+
+        if file:
+            filename = file.filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    return 'Files uploaded successfully', 200
 
 if __name__ == '__main__':
   app.run(debug=True)

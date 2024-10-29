@@ -6,10 +6,10 @@
 
 {% block content %}
 <link rel="stylesheet" href="../static/styles/test_builder.css">
-<script src="uploadFeature.js"></script>
 <section class="builderContent">
-  <h2>Welcome to the Test Builder!</h2>
+  <h1>Test Builder</h1>
   
+  <hr class="titleSeparator">
   <p>
     Here you can execute your test cases with your generic feature file!
     <br>
@@ -18,14 +18,25 @@
     To execute the test cases, upload your feature file here:
   </p>
 
-  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file" class="chooseFeatureFilesButton" multiple accept=".feature,.dictionary,.featuremask" required>
+  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data" class="formElements">
+    <!-- Hidden file input -->
+    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".feature,.dictionary,.featuremask" required style="display: none;">
+    
+    <!-- Custom button to trigger file input -->
+    <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
+    
     <p>
-    <button type="submit" class="runFeatureFiles">Run</button>
-  </form> 
-  
-  <section id="fileList">
-
-  </section>
+    <div id="fileList"></div>
+    <p>
+    Tags:
+    <br>
+    <input type="text" name="tags" id="tags" class="inputTags">
+    <p>
+    <button type="submit" class="runFeatureFiles">Run tests!</button>
+</form>
 </section>
+
+<script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/buttonConfig.js') }}"></script>
+
 {% endblock %}

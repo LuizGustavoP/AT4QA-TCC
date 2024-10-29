@@ -3,10 +3,6 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
-h1{
-  text-align: center;
-  padding-top:2rem;
-}
 
 h2{
   text-align: center;
@@ -31,9 +27,8 @@ tr:nth-child(odd) {
 }
 
 .glossaryContainer {
-  margin: 0 auto;
+  margin: 3rem;
   width: 75%;
-  margin-bottom: 2rem;
   border-radius: 10px;
   padding-right: 2rem;
   padding-left: 2rem;

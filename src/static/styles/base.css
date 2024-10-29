@@ -8,6 +8,25 @@ body{
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  justify-items: center;
+}
+main{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+}
+
+h1{
+  margin: 1rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 45px;
+  font-weight: bolder;
+}
+
+.titleSeparator{
+  border-color: #919191;
+  width: 100%;
 }
 
 .headerMenu{

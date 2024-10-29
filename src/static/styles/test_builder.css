@@ -1,28 +1,67 @@
-.builderContent{
+:host {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  font-family: 'Times New Roman', Times, serif;
+  align-content: center;
 }
 
-.chooseFeatureFilesButton{
+.builderContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 2rem;
+  width: 75vw;
+  max-width: 750px;
+  border-radius: 10px;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  box-shadow: 4px 4px 4px 4px rgb(0, 0, 0, 0.1);
+}
+
+.runFeatureFiles {
   background-color: #888888;
   color: black;
   box-shadow: 4px 4px 4px #888888;
   border-radius: 5px;
   width: 200px;
-  height: 50px;
+  height: 60px;
+  font-size: 20px;
+  margin-bottom: 1rem;
 }
 
-.uploadFeatureFiles{
+.formElements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputTags {
+  width: 400px;
+  height: 30px;
+}
+
+.uploadFeatureFiles {
+  display: none; /* Hide the default file input */
+}
+
+.customFileButton {
   background-color: #bc1749;
   color: white;
   box-shadow: 4px 4px 4px #888888;
   border-radius: 5px;
-  width: 100px;
+  width: 150px;
+  margin-top: 1rem;
   height: 50px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.customFileButton:hover {
+  background-color: #a3143f;
 }
 
 .file-item {
@@ -30,9 +69,11 @@
   align-items: center;
   margin-bottom: 10px;
 }
+
 .file-name {
   margin-right: 10px;
 }
+
 .loading-icon {
   width: 20px;
   height: 20px;
@@ -41,10 +82,12 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
 .checkmark {
   color: green;
   font-size: 20px;
