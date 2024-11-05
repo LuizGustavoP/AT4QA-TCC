@@ -20,7 +20,7 @@
 
   <section class="introSection">
 
-    <button class="introButton" onclick="{{url_for('agbdd')}}">
+    <button class="introButton" onclick="{{url_for('agbdd')}}" id="WhatIsAGBDD">
 
       <h2 class="sectionTitle">What is AGBDD?</h2>
 
@@ -93,4 +93,12 @@
   </section>
 
 </section>
+{% endblock %}
+
+{% block footer %}
+  <section class="imageSources">
+    <p>Images from Pexels</p>
+    https://www.pexels.com/pt-br/foto/texto-965345/
+    <br>
+  </section>
 {% endblock %}

@@ -6,9 +6,11 @@
 
 {% block content %}
 <link rel="stylesheet" href="../static/styles/generator.css">
-<script src="{{ url_for('static', filename='scripts/uploadDocumentation.js') }}"></script>
 <section class="generatorContent">
-  <h2>Welcome to the Generator!</h2>
+  
+  <h1>Welcome to the Generator!</h1>
+  
+  <hr class="titleSeparator">
   
   <p>
     Here you can generate the base of a Feature File to get a headstart!
@@ -18,14 +20,21 @@
     To generate your Feature Files, upload your documentation in JSON or YAML format here:
   </p>
 
-  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file" class="chooseDocumentationButton" multiple accept=".yaml,.json" required>
+  <form id="uploadForm" action="{{url_for('upload_documentation')}}" method="post" enctype="multipart/form-data" class="formElements">
+    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".yaml,.json" required style="display: none;">
+    <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
     <p>
-    <button type="submit" class="generate">Generate Feature File</button>
-  </form> 
-  
-  <section id="fileList">
+    <div id="fileList"></div>
+  </form>
 
-  </section>
+  <form id="runForm" action="{{url_for('generate_feature')}}" method="post" enctype="multipart/form-data" class="formElements">
+    <p>
+    <button type="submit" class="runFeatureFiles" id="runTestsButton">Generate!</button>
+    <input type="hidden" name="file" id="runFile" class="uploadFeatureFiles" multiple accept=".yaml,.json" required style="display: none;">
+    <input type="hidden" name="tags" id="runTags" class="inputTags">
+  </form>
 </section>
+
+<script src="{{ url_for('static', filename='scripts/uploadFile.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/buttonConfig.js') }}"></script>
 {% endblock %}

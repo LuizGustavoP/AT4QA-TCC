@@ -9,7 +9,9 @@
 <script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
 <section class="editorContent">
 
-  <h2>Welcome to the Editor!</h2>
+  <h1>Welcome to the Editor!</h1>
+  
+  <hr class="titleSeparator">
   
   <p>
     Here you can edit your feature files!
@@ -19,14 +21,14 @@
     To edit your feature file, upload it here:
   </p>
 
-  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file" class="chooseFeatureFilesButton" accept=".feature,.dictionary,.featuremask" required>
+  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data" class="formElements">
+    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".feature,.dictionary,.featuremask" required style="display: none;">
+    <button type="button" id="customFileButton" class="customFileButton">Select Files</button> 
     <p>
-    <button type="submit" class="runFeatureFiles">Edit</button>
-  </form> 
-  
-  <section id="fileList">
-
-  </section>
+    <div id="fileList"></div>
+  </form>
 </section>
+
+<script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/buttonConfig.js') }}"></script>
 {% endblock %}

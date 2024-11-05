@@ -8,7 +8,19 @@
   {{title}}
 {% endblock %}
 
+{% block header %}
+<section class="subHeaderMenu">
+  <section class="subHeaderButtons">
+    <a href="#API" class="subHeaderButtonLink"><b>API</b></a>
+    <a href="#Controllers" class="subHeaderButtonLink"><b>Controllers</b></a>
+    <a href="#Generators" class="subHeaderButtonLink"><b>Generators</b></a>
+    <a href="#Database" class="subHeaderButtonLink"><b>Database</b></a>
+    <a href="#Storage" class="subHeaderButtonLink"><b>Storage</b></a>
+  </section>
+</section>
+{% endblock %}
 {% block content %}
+
 <section class="glossaryContainer">
 
   <h1>Glossary</h1>
@@ -19,7 +31,7 @@
   <p>
 
   <hr>
-  <section class="statementGroup">
+  <section class="statementGroup" id="API">
 
     <h2>General API Funcionality</h2>
     <hr>
@@ -279,7 +291,10 @@
 
     <hr>
 
-  <section class="statementGroup">
+  <section class="statementGroup" id="Controllers">
+
+    <h2>Controllers</h2>
+    <hr>
 
     <section class="statementInfo">
       <h3>Pause the test execution</h3>
@@ -321,7 +336,7 @@
 
   <hr>
 
-  <section class="statementGroup" >
+  <section class="statementGroup" id="Generators">
     
     <h2>Value Generators</h2>
     <hr>
@@ -520,7 +535,7 @@
 
   <hr>
 
-  <section class="statementGroup">
+  <section class="statementGroup" id="Database">
 
     <h2>Database Interactions</h2>
     <hr>
@@ -848,7 +863,7 @@
 
   <hr>
 
-  <section class="statementGroup">
+  <section class="statementGroup" id="Storage">
 
     <h2>Storage</h2>
     <hr>

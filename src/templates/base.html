@@ -10,18 +10,27 @@
   <body>
 
     <section class="headerMenu">
-      <section class="headerLogo">
-        <img src="{{ url_for('static', filename='images/opus_software_logo.png') }}"> <span>AT4QA Project <br> by OpusSoftware </span>
+      <section class="mainHeader">
+
+        <section class="headerLogo">
+          <img src="{{ url_for('static', filename='images/opus_software_logo.png') }}"> <span>Project AT4QA</span>
+        </section>
+        <section class="headerButtons">
+          <a href="{{url_for('homepage')}}" class="headerButtonLink"><b>Home</b></a>
+          <hr class="buttonDivider">
+          <a href="{{url_for('agbdd')}}" class="headerButtonLink"><b>AGBDD</b></a>
+          <hr class="buttonDivider">
+          <a href="{{url_for('glossary')}}" class="headerButtonLink"><b>Glossary</b></a>
+          <hr class="buttonDivider">
+          <a href="{{url_for('test_builder')}}" class="headerButtonLink"><b>Tester</b></a>
+          <hr class="buttonDivider">
+          <a href="{{url_for('editor')}}" class="headerButtonLink"><b>Editor</b></a>
+          <hr class="buttonDivider">
+          <a href="{{url_for('generator')}}" class="headerButtonLink"><b>Generator</b></a>
+        </section>
       </section>
-      <section class="headerButtons">
-        <a href="{{url_for('homepage')}}" class="headerButtonLink"><b>Home</b></a>
-        <a href="{{url_for('agbdd')}}" class="headerButtonLink"><b>AGBDD</b></a>
-        <a href="{{url_for('glossary')}}" class="headerButtonLink"><b>Glossary</b></a>
-        <a href="{{url_for('test_builder')}}" class="headerButtonLink"><b>Tester</b></a>
-        <a href="{{url_for('editor')}}" class="headerButtonLink"><b>Editor</b></a>
-        <a href="{{url_for('generator')}}" class="headerButtonLink"><b>Generator</b></a>
-        <a href="{{url_for('account')}}" class="headerButtonLink"><b>Account</b></a>
-      </section>
+      {% block header %}
+      {% endblock %}
     </section>
 
     <main>
@@ -38,9 +47,10 @@
         <a href="{{url_for('test_builder')}}" class="footerButtonLink"><b>Tester</b></a>
         <a href="{{url_for('editor')}}" class="footerButtonLink"><b>Editor</b></a>
         <a href="{{url_for('generator')}}" class="footerButtonLink"><b>Generator</b></a>
-        <a href="{{url_for('account')}}" class="footerButtonLink"><b>Account</b></a>
       </section>
         <p> 2024 AT4QA Project by OpusSoftware</p>
+        {% block footer %}
+        {% endblock %}
     </footer>
   </body>
 </html>
