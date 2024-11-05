@@ -1,3 +1,37 @@
+.subHeaderMenu{
+  display: flex;
+  background-color: #949494;
+  position: sticky;
+  color:black;
+  justify-content: space-between;
+  border-bottom: solid 1px #e0e0e0;
+  align-items: center;
+  height: 8vh;
+  top: 0;
+  width: 100%;
+}
+
+.subHeaderButtons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2px;
+  margin-right: 10px;
+  padding-right: 15rem;
+  padding-left: 15rem;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.subHeaderButtonLink{
+  color:white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: large;
+  font-family:'Times New Roman', Times, serif
+}
+
 table {
   font-family: helvetica;
   border-collapse: collapse;
@@ -29,6 +63,7 @@ tr:nth-child(odd) {
 .glossaryContainer {
   margin: 3rem;
   width: 75%;
+  background-color: white;
   border-radius: 10px;
   padding-right: 2rem;
   padding-left: 2rem;
@@ -42,4 +77,8 @@ span{
 
 .generalInfo{
   padding-bottom: 2rem;
+}
+
+.statementGroup{
+  scroll-margin-top: 10.5rem;
 }

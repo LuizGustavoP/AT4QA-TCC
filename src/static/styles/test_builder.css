@@ -9,6 +9,7 @@
 .builderContent {
   display: flex;
   flex-direction: column;
+  background-color: white;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -21,21 +22,56 @@
   box-shadow: 4px 4px 4px 4px rgb(0, 0, 0, 0.1);
 }
 
+.builderInfo{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  width: 85%;
+  max-width: 600px;
+}
+
+.testButtons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
 .runFeatureFiles {
   background-color: #888888;
-  color: black;
+  color: white;
   box-shadow: 4px 4px 4px #888888;
   border-radius: 5px;
   width: 200px;
   height: 60px;
   font-size: 20px;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.stopFeatureFiles {
+  background-color: #d12424;
+  color: white;
+  box-shadow: 4px 4px 4px #888888;
+  border-radius: 5px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .formElements {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 2rem;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   align-items: center;
 }
 
@@ -45,7 +81,7 @@
 }
 
 .uploadFeatureFiles {
-  display: none; /* Hide the default file input */
+  display: none;
 }
 
 .customFileButton {
@@ -91,4 +127,119 @@
 .checkmark {
   color: green;
   font-size: 20px;
+}
+
+.consoleOuputContainer{
+  background-color: #f4f4f4;
+  padding: 10px;
+  width: 100%;
+  height: max-content;
+  border: 1px solid #ccc;
+  min-height: 350px;
+  overflow-y: auto;
+}
+
+.consoleOuputContainer > strong{
+  padding: 10px;
+  min-width: max-content;
+  overflow-y: auto;
+}
+
+#consoleSeparator{
+  width: 100%;
+  margin: 2rem;
+}
+
+#outputText{
+  font-family: monospace;
+  font-size: 12px;
+}
+
+#reportLinks{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  align-content: center;
+  text-align: center;
+  width: 100%;
+  height: max-content;
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.reportHTMLButton{
+  place-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  background-color: #bc1749;
+  color: white;
+  box-shadow: 4px 4px 4px #888888;
+  border-radius: 5px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.reportHTMLButton:hover{
+  background-color: #97002d;
+}
+
+.reportJSONButton{
+  place-content: center;
+  text-decoration: none;
+  background-color: #dba616;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: white;
+  text-decoration-line: none;
+  box-shadow: 4px 4px 4px #888888;
+  border-radius: 5px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.reportJSONButton:hover {
+  background-color: #be8b00;
+}
+
+.uploadedFilesContainer {
+  margin-top: 20px;
+  width: 85%;
+  max-width: 600px;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.uploadedFilesContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.uploadedFilesContainer li {
+  padding: 5px 0;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.consoleSeparator{
+  width: 100%;
+}
+
+.fa-spinner {
+  margin-right: 5px;
+}
+
+.delete-button{
+  background: none;
+  border: dotted;
+  border-color: #ff004d;
+  color: #ff004d;
+  border-radius: 5px;
 }

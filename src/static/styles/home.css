@@ -1,5 +1,6 @@
 .homeContentContainer{
     display: flex;
+    background-color: white;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -38,4 +39,12 @@
   font-size: 1.5rem;
   font-weight: 300;
   width: 65%;
+  fill-opacity: initial;
+}
+
+#WhatIsAGBDD{
+  background-image: url(/static/images/coding.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: rgba(0,0,0,0.2)
 }
