@@ -1,12 +1,19 @@
 .subHeaderMenu{
   display: flex;
   background-color: #949494;
-  position: sticky;
+  position: relative;
   color:black;
   justify-content: space-between;
   border-bottom: solid 1px #e0e0e0;
   align-items: center;
   height: 8vh;
+  top: 0;
+  width: 100%;
+  transition: top 0.3s ease-in-out;
+}
+
+.fixedToTop {
+  position: fixed;
   top: 0;
   width: 100%;
 }
