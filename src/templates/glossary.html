@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block header %}
-<section class="subHeaderMenu">
+<section class="subHeaderMenu" id="subHeaderGlossary">
   <section class="subHeaderButtons">
     <a href="#API" class="subHeaderButtonLink"><b>API</b></a>
     <a href="#Controllers" class="subHeaderButtonLink"><b>Controllers</b></a>
@@ -1058,4 +1058,6 @@
     In the case of composite structures, the order of the indexes will be the same as the values returned by the "select" query.
   </section>
 </section>
+
+<script src="{{ url_for('static', filename='scripts/hideSubHeader.js') }}"></script>
 {% endblock %}
