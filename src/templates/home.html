@@ -8,19 +8,19 @@
 <link rel="stylesheet" href="../static/styles/home.css">
 <section class="homeContentContainer">
 
-  <section class="introSection">
+  <section class="introSection" id="banner1">
 
     <h2 class="sectionTitle">Welcome to AT4QA Project!</h2>
 
     <p class="sectionText">
-      <span>Here you can learn about the AGBDD development paradigm, create and run test cases, edit your feature files, and generate bases for test cases!</span>
+      Here you can learn about the AGBDD development paradigm, create and run test cases, edit your feature files, and generate bases for test cases!
     </p>
     
   </section>
 
-  <section class="introSection">
+  <section class="introSection" id="banner2">
 
-    <button class="introButton" onclick="{{url_for('agbdd')}}" id="WhatIsAGBDD">
+    <a class="introButton" href="{{url_for('agbdd')}}">
 
       <h2 class="sectionTitle">What is AGBDD?</h2>
 
@@ -33,49 +33,49 @@
         <span>Click here for more information</span>
       </p>
 
-    </button>
+    </a>
 
   </section>
 
-  <section class="introSection">
+  <section class="introSection" id="banner3">
 
-    <button class="introButton" onclick="{{url_for('test_builder')}}">
+    <a class="introButton" href="{{url_for('test_builder')}}">
 
       <h2 class="sectionTitle">Run your test cases!</h2>
 
       <p class="sectionText">
-        Here with Project AT4QA, you can upload your feature files and run them
+        Here with AT4QA Project, you can upload your feature files and run them
         to see the results!
         <br>
         <br>
         <span>Click here to start testing!</span>
       </p>
 
-    </button>
+    </a>
 
   </section>
 
-  <section class="introSection">
+  <section class="introSection" id="banner4">
 
-    <button type="button" class="introButton" onclick="{{ url_for('editor') }}">
+    <a type="button" class="introButton" href="{{url_for('editor')}}">
 
-      <h2 class="sectionTitle">Need help editing?</h2>
+      <h2 class="sectionTitle">Having trouble editing?</h2>
 
       <p class="sectionText">
-        Project AT4QA also has a feature file editor to help you edit your test cases
+        AT4QA Project also has a feature file editor to help you edit your test cases
         with ease!
         <br>
         <br>
         <span>Click here to start editing!</span>
       </p>
 
-    </button>
+    </a>
 
   </section>
 
-  <section class="introSection">
+  <section class="introSection" id="banner5">
 
-    <button class="introButton" onclick="{{url_for('generator')}}">
+    <a class="introButton" href="{{url_for('generator')}}">
       
       <h2 class="sectionTitle">Need a little push to start?</h2>
 
@@ -88,7 +88,7 @@
         <span>Click here to learn more!</span>
       </p>
     
-    </button>
+    </a>
   
   </section>
 
@@ -96,9 +96,4 @@
 {% endblock %}
 
 {% block footer %}
-  <section class="imageSources">
-    <p>Images from Pexels</p>
-    https://www.pexels.com/pt-br/foto/texto-965345/
-    <br>
-  </section>
 {% endblock %}

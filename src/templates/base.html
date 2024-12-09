@@ -13,7 +13,9 @@
       <section class="mainHeader">
 
         <section class="headerLogo">
-          <img src="{{ url_for('static', filename='images/opus_software_logo.png') }}"> <span>Project AT4QA</span>
+          <a href="{{url_for('homepage')}}" class="headerLogoLink">
+            <img src="{{ url_for('static', filename='images/opus_software_logo.png') }}"> <span>AT4QA Project</span>
+          </a>
         </section>
         <section class="headerButtons">
           <a href="{{url_for('homepage')}}" class="headerButtonLink"><b>Home</b></a>
@@ -39,18 +41,18 @@
     </main>
 
     <footer class="baseFooter">
-      <hr class="divider">
       <section class="footerButtons">
-        <a href="{{url_for('homepage')}}" class="footerButtonLink"><b>Home</b></a>
-        <a href="{{url_for('agbdd')}}" class="footerButtonLink"><b>AGBDD</b></a>
-        <a href="{{url_for('glossary')}}" class="footerButtonLink"><b>Glossary</b></a>
-        <a href="{{url_for('test_builder')}}" class="footerButtonLink"><b>Tester</b></a>
-        <a href="{{url_for('editor')}}" class="footerButtonLink"><b>Editor</b></a>
-        <a href="{{url_for('generator')}}" class="footerButtonLink"><b>Generator</b></a>
+        <a href="https://www.opus-software.com.br/" class="footerButtonLink"><b>About Us</b></a>
+        <a href="https://github.com/Opus-Software/AT4QA" class="footerButtonLink"><b>Repository</b></a>
+        <a href="" class="footerButtonLink"><b>AGBDD Dissertation</b></a>
       </section>
-        <p> 2024 AT4QA Project by OpusSoftware</p>
-        {% block footer %}
-        {% endblock %}
+      <hr class="footerDivider">
+      <section class="footerSpecialThanks">
+        <p>Special thanks to IME-USP</p>
+        <img class="imeLogo" src="static/images/ime_logo.svg">
+      </section>
+      {% block footer %}
+      {% endblock %}
     </footer>
   </body>
 </html>

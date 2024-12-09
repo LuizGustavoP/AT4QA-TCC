@@ -1,8 +1,8 @@
-html{
+html {
   scroll-behavior: smooth;
 }
 
-body{
+body {
   background-color: #ededed;
   margin: 0;
   min-height: 100vh;
@@ -10,46 +10,54 @@ body{
   grid-template-rows: auto 1fr auto;
   justify-items: center;
 }
-main{
+
+main {
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
+  width: 100%;
 }
 
-h1{
+h1 {
   margin: 1rem;
   margin-top: 1.5rem;
   text-align: center;
-  font-size: 45px;
+  font-size: 2.5rem; 
   font-weight: bolder;
 }
 
-.titleSeparator{
+.titleSeparator {
   border-color: #919191;
   width: 100%;
 }
-.headerMenu{
+
+
+.headerMenu {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   justify-content: space-between;
   width: 100%;
   top: 0;
   position: sticky;
+  z-index: 10;
 }
 
-.mainHeader{
+.mainHeader {
   display: flex;
   background-color: #bc1749;
-  color:white;
+  color: white;
   justify-content: space-between;
   border-bottom: solid 1px #e0e0e0;
   align-items: center;
   height: 12vh;
   width: 100%;
+  box-sizing: border-box;
   z-index: 1000;
+  padding: 0 1rem;
 }
 
-.headerButtons{
+.headerButtons {
   display: flex;
   justify-content: space-between;
   width: 55vw;
@@ -57,25 +65,31 @@ h1{
   margin-right: 10px;
   padding-right: 2rem;
   align-items: center;
+  flex-wrap: wrap;
+  margin-left: 1.5rem;
 }
-.buttonDivider{
+
+.buttonDivider {
   border-color: white;
   height: 2rem;
 }
-.headerLogo{
+
+.headerLogoLink {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: max-content;
-  font-size: 25px;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
   font-weight: 600;
   padding-left: 2rem;
   margin-bottom: 2px;
 }
 
-.headerLogo > img{
-  width: 60px;
-  height: 60px;
+.headerLogoLink > img {
+  width: 50px;
+  height: 50px;
   padding-right: 0.5rem;
   -webkit-filter: drop-shadow(0.5px 0.5px 1px rgba(0, 0, 0, 0.5))
                   drop-shadow(-0.5px -0.5px 1px rgba(0, 0, 0, 0.5));
@@ -83,47 +97,161 @@ h1{
           drop-shadow(-0.5px -0.5px 1px rgba(0, 0, 0, 0.5));
 }
 
-.footer{
-  display:flex;
-}
-
-.headerButtonLink{
-  color:white;
+.headerButtonLink {
+  color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: large;
-  font-family:'Times New Roman', Times, serif
+  font-size: 1rem;
+  font-family: 'Times New Roman', Times, serif;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-.baseFooter{
+
+.baseFooter {
   display: flex;
-  justify-content: space-between;
   background-color: #919191;
+  box-sizing: border-box;
   color: black;
   position: relative;
   bottom: 0;
-  height: 35vh;
+  height: max-content;
   width: 100%;
-  border-top: solid 2px #e0e0e0;
-  flex-direction: column;
-}
-
-.footerButtons{
-  display: flex;
-  height: 20vh;
-  flex-direction: column;
-  margin-bottom: 2px;
-  margin-right: 10px;
-  padding-right: 2rem;
+  flex-direction: row;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  align-content: flex-end;
-  align-items: flex-end;
+  padding: 1rem;
 }
 
-.footerButtonLink{
-  color:white;
+.footerButtons {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.footerButtonLink {
+  color: white;
   text-decoration: underline;
   font-weight: 500;
-  font-size: large;
-  font-family:'Times New Roman', Times, serif
+  font-size: 1rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.footerDivider {
+  border-color: #c8c8c8;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  border-style: dashed;
+}
+
+.footerSpecialThanks {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  justify-content: space-evenly;
+}
+
+.imeLogo {
+  width: 150px;
+  height: 100px;
+}
+
+@media (max-width: 768px) {
+  .mainHeader {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .headerButtons {
+    width: 100%; 
+    justify-content: center; 
+    margin: 0;
+    padding: 0;
+  }
+
+  .headerLogoLink {
+    padding-left: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem; 
+  }
+
+  .headerLogoLink > img {
+    width: 40px; 
+    height: 40px;
+  }
+
+  .headerButtonLink {
+    font-size: 0.9rem; 
+    margin: 0.3rem;
+  }
+
+  .baseFooter {
+    flex-direction: column; 
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .footerDivider{
+    margin: 0.5rem;
+    width: 95%;
+  }
+
+  .footerButtons {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+  }
+
+  .footerSpecialThanks {
+    font-size: 0.9rem; 
+  }
+
+  .imeLogo {
+    width: 120px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerButtonLink {
+    font-size: 0.8rem; 
+    margin: 0.2rem;
+  }
+
+  .headerLogoLink {
+    font-size: 1rem;
+  }
+
+  .baseFooter {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
+  .footerButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerSpecialThanks {
+    font-size: 0.8rem;
+  }
+
+  .imeLogo {
+    width: 100px;
+    height: 70px;
+  }
 }
