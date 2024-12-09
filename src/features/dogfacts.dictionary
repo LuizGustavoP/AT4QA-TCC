@@ -1,0 +1,9 @@
+Dictionary: Dog Facts!
+
+  Statement: the API returned the data field in the response "<field>"
+
+    Then the field(s) "<api_returned_field>" is(are) "<field_situation>" in the "<api_return_origin>" of the API response
+
+    Examples:
+      | api_returned_field | field_situation | api_return_origin |
+      | data               | presente        | @field@           |
