@@ -1,6 +1,6 @@
 .subHeaderMenu{
   display: flex;
-  background-color: #949494;
+  background-color: #919191;
   position: relative;
   color:black;
   justify-content: space-between;
@@ -20,15 +20,12 @@
 
 .subHeaderButtons{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
-  margin-bottom: 2px;
-  margin-right: 10px;
-  padding-right: 15rem;
-  padding-left: 15rem;
+  box-sizing: border-box;
   align-items: center;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .subHeaderButtonLink{
@@ -45,14 +42,19 @@ table {
   width: 100%;
 }
 
-h2{
+h2 {
   text-align: center;
+}
+
+li {
+  margin-bottom: 1rem;
 }
 
 td {
   text-align: left;
   border: 1px solid #000000;
   padding: 8px;
+  font-size: 13px;
 }
 
 th {
@@ -71,10 +73,11 @@ tr:nth-child(odd) {
   margin: 3rem;
   width: 75%;
   background-color: white;
+  box-sizing: border-box;
   border-radius: 10px;
   padding-right: 2rem;
   padding-left: 2rem;
-  box-shadow: 4px 4px 4px 4px rgb(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px 1px rgb(0, 0, 0, 0.1)
 }
 
 span{
@@ -88,4 +91,70 @@ span{
 
 .statementGroup{
   scroll-margin-top: 10.5rem;
+}
+
+@media (max-width: 768px) {
+  .subHeaderButtonLink{
+    font-size: 1.1rem;
+  }
+
+  .glossaryContainer{
+    font-size: 0.8rem;
+  }
+
+  td {
+    font-size: 8px;
+  }
+
+  h1{
+    font-size: 2.0rem;
+  }
+
+  h2{
+    font-size: 1.5rem;
+  }
+
+  h3{
+    font-size: 1.1rem;
+  }
+
+  span{
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .subHeaderButtonLink{
+    font-size: 0.8rem;
+  }
+
+  td {
+    font-size: 5px;
+  }
+}
+
+@media (max-width: 550px) {
+  .subHeaderButtonLink{
+    font-size: 0.6rem;
+  }
+
+  .glossaryContainer{
+    font-size: 0.5rem;
+  }
+
+  h1{
+    font-size: 1.7rem;
+  }
+
+  h2{
+    font-size: 1.2rem;
+  }
+
+  h3{
+    font-size: 0.8rem;
+  }
+
+  span{
+    font-size: 0.6rem;
+  }
 }
