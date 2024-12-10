@@ -6,29 +6,39 @@
 
 {% block content %}
 <link rel="stylesheet" href="../static/styles/editor.css">
-<script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
 <section class="editorContent">
 
   <h1>Welcome to the Editor!</h1>
   
   <hr class="titleSeparator">
-  
-  <p>
-    Here you can edit your feature files!
-    <br>
-    For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
-    <br>
-    To edit your feature file, upload it here:
-  </p>
 
-  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data" class="formElements">
-    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".feature,.dictionary,.featuremask" required style="display: none;">
-    <button type="button" id="customFileButton" class="customFileButton">Select Files</button> 
+  <section class="editorInfo">
+
+    <p>
+      Here you can edit your feature files, masks, and dictionaries!
+      <br>
+      For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+      <br>
+      To edit your file of choice, upload it here:
+    </p>
+  </section>
+    
+  <form id="uploadForm" action="{{url_for('upload_file_for_editing')}}" method="post" enctype="multipart/form-data" class="formElements">
+    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".feature,.featuremask,.dictionaries" required style="display: none;">
+    <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
     <p>
     <div id="fileList"></div>
   </form>
+
+  <hr class="separator">
+  <div id="editor" style="display: none; width: 100%; height: 400px; margin-top: 2rem;"></div>
+  <section class="saveButtonsContainer">
+    <button id="saveButton" class="saveButton">Save Changes</button>
+    <button id="saveAsButton" class="saveButton">Save As...</button>
+  </section>
 </section>
 
-<script src="{{ url_for('static', filename='scripts/uploadFeature.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/editor.js') }}"></script>
 <script src="{{ url_for('static', filename='scripts/buttonConfig.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
 {% endblock %}
