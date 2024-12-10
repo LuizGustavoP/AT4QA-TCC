@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileList = document.getElementById('fileList');
     const fileInput = document.getElementById('file');
 
+    let typeSelect = document.getElementById('builderContent');
+    if (!typeSelect) typeSelect = 'documentation';
+    else typeSelect = 'feature';
+
     let filesUploaded = 0;
 
     customFileButton.addEventListener('click', function(event) 
@@ -30,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const fileItem = document.createElement('div');
             const fileName = document.createElement('span');
 
-            fileItem.classList.add('file-item');
+            fileItem.classList.add('fileItem');
 
-            fileName.classList.add('file-name');
+            fileName.classList.add('fileName');
             fileName.textContent = file.name;
             fileItem.appendChild(fileName);
 
@@ -64,10 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function uploadFile(formData, index)
     {
         const xhr = new XMLHttpRequest();
-        const fileItem = document.getElementsByClassName('file-item')[index];
+        const fileItem = document.getElementsByClassName('fileItem')[index];
         const loadingIcon = fileItem.querySelector('.loading-icon');
 
-        xhr.open('POST', '/upload_test', true);
+        xhr.open('POST', `/upload_file?type=${typeSelect}`, true);
 
         xhr.upload.onprogress = function(event) 
         {
@@ -111,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchUploadedFiles() 
     {
-        fetch('/list_uploaded_files')
+        fetch(`/list_uploaded_files?type=${typeSelect}`)
             .then(response => response.json())
             .then(data => {
 
@@ -121,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     data.files.forEach(file => {
 
                         const listItem = document.createElement('li');
-                        listItem.classList.add('uploaded-file-item');
+                        listItem.classList.add('uploaded-fileItem');
 
                         const fileNameSpan = document.createElement('span');
                         fileNameSpan.textContent = file;
@@ -147,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function deleteFile(fileName)
     {
-        fetch('/delete_file', {
+        fetch(`/delete_file?type=${typeSelect}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
