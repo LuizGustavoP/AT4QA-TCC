@@ -6,24 +6,25 @@
 
 {% block content %}
 <link rel="stylesheet" href="../static/styles/test_builder.css">
-<section class="builderContent">
+<section class="builderContent" id="builderContent">
 
   <h1>Welcome to the Test Builder!</h1>
   
   <hr class="titleSeparator">
 
   <section class="builderInfo">
-
-    <p>
+    <p class="builderExplanation">
       Here you can execute your test cases with your generic feature file!
       <br>
+      <br>
       For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+      <br>
       <br>
       To execute the test cases, upload your feature file here:
     </p>
   </section>
     
-  <form id="uploadForm" action="{{url_for('upload_test')}}" method="post" enctype="multipart/form-data" class="formElements">
+  <form id="uploadForm" action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data" class="formElements">
     <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".feature,.dictionary,.featuremask" required style="display: none;">
     <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
     <p>
@@ -38,28 +39,37 @@
   </section>
   
   <section class="builderInfo">
-    <br>
-    With your files uploaded, you can now run your tests with the tags you want!
-    <br>
-    Insert the tags you want to use to filter the test cases you want to run.
-    <br>
-    (If you want to run all the test cases, leave the field empty.)
-    <br>
-    Then click the 'Run Tests!' button to execute the test cases.
-    <br>
-    It will run all test cases in the 'features' folder, filtered by the tags you provided!
-    <br>
+    <p class="builderExplanation">
+      With your files uploaded, you can now run your tests!
+      <br>
+      <br>
+      You can also insert tags to filter test cases below! If you want
+      test cases that all have a combination of tags, separete them with the word 'and'.
+      For example, if you want to run all test cases that have both the tags 'success' and
+      'test', you should write 'success and test'.
+      <br>
+      <br>
+      Now, if you want to run all test cases that have either the tag 'success' or 'test',
+      you should write 'success or test'.
+      <br>
+      <br>
+      If you want to run all the test cases, leave the field empty.
+      <br>
+      <br>
+      Click the 'Run Tests!' button to execute the test cases.
+      <br>
+      <br>
+      It will run all test cases in the 'features' folder, filtered by the tags you provided!
+    </p>
   </section>
   
   <form id="runForm" action="{{url_for('run_test')}}" method="post" enctype="multipart/form-data" class="formElements">
-    <p>
-    Tags:
+    <p>Tags:</p>
     <input type="text" name="tags" id="tags" class="inputTags">
-    <p>
-      <section class="testButtons">
-        <button type="submit" class="runFeatureFiles" id="runTestsButton">Run Tests!</button>
-        <button type="button" id="stopTestsButton" class="stopFeatureFiles" style="display: none;">Stop Tests</button>
-      </section>
+    <section class="testButtons">
+      <button type="submit" class="runFeatureFiles" id="runTestsButton">Run Tests!</button>
+      <button type="button" id="stopTestsButton" class="stopFeatureFiles" style="display: none;">Stop Tests</button>
+    </section>
     <input type="hidden" name="file" id="runFile" class="uploadFeatureFiles" multiple accept=".feature,.dictionary,.featuremask" required style="display: none;">
     <input type="hidden" name="tags" id="runTags" class="inputTags">
   </form>
