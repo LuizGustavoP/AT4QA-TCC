@@ -13,9 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: #f5f5f5;
-  border-width: thin;
-  height: 350px;
+  height: 600px;
   width: 100%;
   min-height: max-content;
   background-color: #f5f5f5;
@@ -30,6 +28,7 @@
   align-items: center;
   text-decoration: none;
   color:black;
+  justify-content: center;
 }
 
 .sectionTitle{
@@ -51,17 +50,36 @@
   margin-bottom: 1rem;
 }
 
-.sectionText > span{
+.sectionTextDescription{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
+  align-items: center;
+  font-size: 1.7rem;
 }
 
-#banner1, #banner2, #banner3, #banner4, #banner5 {
+#sectionTextWhite{
+  color: white;
+}
+
+.sectionText > span{
+  text-align: center;
+  margin-top: 3rem;
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+#banner1, #banner2,
+#banner3, #banner4,
+#banner5 {
   position: relative;
   z-index: 0;
-  border-bottom: solid;
-  border-bottom-color: gray;
-  border-bottom-width: 2px;
   overflow: hidden; 
+}
+
+#banner2, #banner4{
+  background-color: #aa233b;
 }
 
 #banner1::before, #banner2::before, #banner3::before, #banner4::before, #banner5::before {
