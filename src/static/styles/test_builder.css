@@ -43,8 +43,9 @@
 .runFeatureFiles {
   background-color: #888888;
   color: white;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);;
   border-radius: 5px;
+  border:none;
   width: 200px;
   height: 60px;
   margin-top: 1rem;
@@ -56,7 +57,7 @@
 .stopFeatureFiles {
   background-color: #d12424;
   color: white;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   width: 200px;
   height: 60px;
@@ -67,17 +68,15 @@
 
 .formElements {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 85%;
   margin-top: 2rem;
-  box-sizing: border-box;
   padding-left: 2rem;
   padding-top: 1rem;
   padding-right: 2rem;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
 }
 
 .inputTags {
@@ -92,10 +91,11 @@
 .customFileButton {
   background-color: #bc1749;
   color: white;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);;
   border-radius: 5px;
   width: 150px;
   margin-top: 1rem;
+  border:none;
   height: 50px;
   font-size: 1.3rem;
   cursor: pointer;
@@ -168,7 +168,7 @@
 }
 
 #reportLinks{
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);;
   align-content: center;
   text-align: center;
   width: 100%;
@@ -185,7 +185,7 @@
   font-weight: 600;
   background-color: #bc1749;
   color: white;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   width: 200px;
   height: 60px;
@@ -206,7 +206,7 @@
   font-weight: 600;
   color: white;
   text-decoration-line: none;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   width: 200px;
   height: 60px;
@@ -225,7 +225,7 @@
   max-width: 600px;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);;
 }
 
 .uploadedFilesContainer ul {

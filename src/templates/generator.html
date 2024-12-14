@@ -6,35 +6,86 @@
 
 {% block content %}
 <link rel="stylesheet" href="../static/styles/generator.css">
-<section class="generatorContent">
-  
+<section class="generatorContent" id="generatorContent">
+
   <h1>Welcome to the Generator!</h1>
   
   <hr class="titleSeparator">
-  
-  <p>
-    Here you can generate the base of a Feature File to get a headstart!
-    <br>
-    For more information on the construction of Feature Files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
-    <br>
-    To generate your Feature Files, upload your documentation in JSON or YAML format here:
-  </p>
 
-  <form id="uploadForm" action="{{url_for('upload_documentation')}}" method="post" enctype="multipart/form-data" class="formElements">
+  <section class="generatorInfo">
+
+    <p>
+      Here you can generate base feature files from YAML and JSON documentation!
+      <br>
+      For more information on the construction of feature files, visit our <a href="{{url_for('glossary')}}"> glossary </a> page.
+      <br>
+      To generate the test cases, upload your documentation here:
+    </p>
+  </section>
+    
+  <form id="uploadForm" action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data" class="formElements">
     <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".yaml,.json" required style="display: none;">
     <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
     <p>
     <div id="fileList"></div>
-  </form>
+</form>
 
+  <section id="uploadedFilesSection" class="uploadedFilesContainer">
+      <strong>Current Documentation:</strong>
+      <br>
+      <hr class="separator">
+      <ul id="uploadedFilesList-documentation" class="uploadedFilesList"></ul>
+  </section>
+  
+  <section class="builderInfo">
+    <br>
+    With your files uploaded, you can now run your generate the feature files for the endpoints you want!
+    <br>
+    Insert the endpoints for which you want to generate test cases for, separated by commas.
+    <br>
+    (If you want to select all endpoints, leave the field empty.)
+    <br>
+    Then click the 'Generate!' button to generate the test cases.
+    <br>
+    It will generate Feature Files for all documentation files in the 'documentation' folder, filtered by the endpoints you provided!
+    <br>
+  </section>
+  
   <form id="runForm" action="{{url_for('generate_feature')}}" method="post" enctype="multipart/form-data" class="formElements">
     <p>
-    <button type="submit" class="runFeatureFiles" id="runTestsButton">Generate!</button>
+    File: 
+    <input type="text" name="selectedFile" id="selectedFile" class="inputTags">
+    <p>
+    Endpoints: 
+    <input type="text" name="endpointList" id="endpointList" class="inputTags">
+    <p>
+      <section class="testButtons">
+        <button type="submit" class="generateFeatureFiles" id="generateTestsButton">Generate!</button>
+      </section>
     <input type="hidden" name="file" id="runFile" class="uploadFeatureFiles" multiple accept=".yaml,.json" required style="display: none;">
-    <input type="hidden" name="tags" id="runTags" class="inputTags">
+    <input type="hidden" name="selectedFile" id="runTags" class="inputTags">
+    <input type="hidden" name="endpointList" id="runTags" class="inputTags">
   </form>
+
+  <hr class="separator">
+
+  <section class="builderInfo">
+
+      <section id="downloadLink" style="display: none;">
+
+        <strong>Tests Cases Generated! <br> Here are the Feature Files:</strong>
+
+        <p>
+
+        <a class="featureDownloadButton" href="{{ url_for('static', filename='generated_features/.feature') }}" download>Download Feature File</a>
+
+      </section>
+  </section>
+
 </section>
 
 <script src="{{ url_for('static', filename='scripts/uploadFile.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/generateTests.js') }}"></script>
 <script src="{{ url_for('static', filename='scripts/buttonConfig.js') }}"></script>
+
 {% endblock %}

@@ -6,7 +6,7 @@
   align-content: center;
 }
 
-.generatorContent {
+.translatorContent {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -22,14 +22,14 @@
   box-shadow: 0px 0px 10px 1px rgb(0, 0, 0, 0.1);
 }
 
-.generatorInfo{
+.translatorInfo{
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;
   width: 85%;
   max-width: 600px;
 }
 
-.testButtons{
+.translateButtonContainer{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.generateFeatureFiles {
+.translateFeatureFiles {
   background-color: #888888;
   color: white;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
@@ -118,12 +118,6 @@
   font-size: 20px;
 }
 
-.separator{
-  width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .uploadedFilesContainer {
   margin-top: 20px;
   width: 85%;
@@ -152,4 +146,17 @@
   border-color: #ff004d;
   color: #ff004d;
   border-radius: 5px;
+}
+
+.fileInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.separator{
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
