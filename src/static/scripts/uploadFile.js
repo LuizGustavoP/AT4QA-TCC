@@ -1,24 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-    const uploadedFilesList = document.getElementById('uploadedFilesList');
+document.addEventListener('DOMContentLoaded', function () {
     const customFileButton = document.getElementById('customFileButton');
     const fileList = document.getElementById('fileList');
     const fileInput = document.getElementById('file');
 
-    let typeSelect = document.getElementById('builderContent');
-    if (!typeSelect) typeSelect = 'documentation';
-    else typeSelect = 'feature';
-
     let filesUploaded = 0;
 
-    customFileButton.addEventListener('click', function(event) 
-    {
+    customFileButton.addEventListener('click', function (event) {
         event.preventDefault();
         fileInput.click();
     });
 
-    fileInput.addEventListener('change', function(event) 
-    {
+    fileInput.addEventListener('change', function (event) {
         fileList.innerHTML = '';
         const files = event.target.files;
 
@@ -27,9 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else
             customFileButton.textContent = 'Select Files';
 
-        for (let i = 0; i < files.length; i++) 
-        {
-
+        for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const fileItem = document.createElement('div');
             const fileName = document.createElement('span');
@@ -51,41 +41,47 @@ document.addEventListener('DOMContentLoaded', function() {
             uploadFiles(files);
     });
 
-    function uploadFiles(files) 
-    {
+    function uploadFiles(files) {
         filesUploaded = 0;
 
-        for (let i = 0; i < files.length; i++) 
-        {
+        for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const formData = new FormData();
-            
+
             formData.append('file', file);
             uploadFile(formData, i, files.length);
         }
     }
 
-    function uploadFile(formData, index)
-    {
+    function uploadFile(formData, index) {
         const xhr = new XMLHttpRequest();
         const fileItem = document.getElementsByClassName('fileItem')[index];
         const loadingIcon = fileItem.querySelector('.loading-icon');
 
+        const fileName = formData.get('file').name;
+        const fileExtension = fileName.split('.').pop().toLowerCase();
+
+        let typeSelect;
+        if (['feature'].includes(fileExtension))
+            typeSelect = 'features';
+        else if (['yaml', 'json'].includes(fileExtension))
+            typeSelect = 'documentation';
+        else if (['mask'].includes(fileExtension))
+            typeSelect = 'masks';
+        else
+            typeSelect = 'dictionaries';
+
         xhr.open('POST', `/upload_file?type=${typeSelect}`, true);
 
-        xhr.upload.onprogress = function(event) 
-        {
-            if (event.lengthComputable) 
-            {
+        xhr.upload.onprogress = function (event) {
+            if (event.lengthComputable) {
                 const percentComplete = (event.loaded / event.total) * 100;
                 console.log(`File ${index + 1}: ${percentComplete}% uploaded`);
             }
         };
 
-        xhr.onload = function()
-        {
-            if (xhr.status === 200)
-            {
+        xhr.onload = function () {
+            if (xhr.status === 200) {
                 console.log(`File ${index + 1} uploaded successfully`);
 
                 loadingIcon.innerHTML = '✔️';
@@ -93,18 +89,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadingIcon.classList.remove('loading-icon');
                 filesUploaded++;
 
-                fetchUploadedFiles();
-            }
-            else
-            {
+                fetchAllUploadedFiles();
+            } else {
                 console.error(`Error uploading file ${index + 1}: ${xhr.statusText}`);
                 alert(`Error uploading file ${index + 1}`);
                 loadingIcon.innerHTML = '❌';
             }
         };
 
-        xhr.onerror = function()
-        {
+        xhr.onerror = function () {
             console.error(`Network error while uploading file ${index + 1}`);
             alert(`Network error while uploading file ${index + 1}`);
             loadingIcon.innerHTML = '❌';
@@ -113,44 +106,66 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(formData);
     }
 
-    function fetchUploadedFiles() 
-    {
-        fetch(`/list_uploaded_files?type=${typeSelect}`)
-            .then(response => response.json())
-            .then(data => {
+    function fetchAllUploadedFiles() {
+        const uploadedFilesLists = document.querySelectorAll('.uploadedFilesList');
 
-                if (data.files) 
-                {
-                    uploadedFilesList.innerHTML = '';
-                    data.files.forEach(file => {
+        uploadedFilesLists.forEach(list => {
+            const listId = list.id;
+            let typeSelect;
 
-                        const listItem = document.createElement('li');
-                        listItem.classList.add('uploaded-fileItem');
+            if (listId.includes('feature'))
+                typeSelect = 'features';
+            else if (listId.includes('documentation'))
+                typeSelect = 'documentation';
+            else if (listId.includes('mask'))
+                typeSelect = 'masks';
+            else
+                typeSelect = 'dictionaries';
+            
 
-                        const fileNameSpan = document.createElement('span');
-                        fileNameSpan.textContent = file;
-                        listItem.appendChild(fileNameSpan);
+            fetch(`/list_uploaded_files?type=${typeSelect}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.files) {
+                        list.innerHTML = '';
+                        data.files.forEach(file => {
+                            const listItem = document.createElement('li');
+                            listItem.classList.add('uploaded-fileItem');
 
-                        const deleteButton = document.createElement('button');
-                        
-                        deleteButton.textContent = 'X';
-                        deleteButton.classList.add('delete-button');
-                        deleteButton.addEventListener('click', function(){
-                            deleteFile(file);
+                            const fileInfoSection = document.createElement('section');
+                            fileInfoSection.classList.add('fileInfo');
+                            
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.value = file;
+                            checkbox.classList.add('file-checkbox');
+                            fileInfoSection.appendChild(checkbox);
+                            
+                            const fileNameSpan = document.createElement('span');
+                            fileNameSpan.textContent = file;
+                            fileInfoSection.appendChild(fileNameSpan);
+
+
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'X';
+                            deleteButton.classList.add('delete-button');
+                            deleteButton.addEventListener('click', function () {
+                                deleteFile(file, typeSelect, list);
+                            });
+
+                            listItem.appendChild(fileInfoSection);
+                            listItem.appendChild(deleteButton);
+                            list.appendChild(listItem);
                         });
-
-                        listItem.appendChild(deleteButton);
-                        uploadedFilesList.appendChild(listItem);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching uploaded files:', error);
-            });
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error fetching uploaded files for ${typeSelect}:`, error);
+                });
+        });
     }
 
-    function deleteFile(fileName)
-    {
+    function deleteFile(fileName, typeSelect, list) {
         fetch(`/delete_file?type=${typeSelect}`, {
             method: 'POST',
             headers: {
@@ -158,23 +173,20 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({ file_name: fileName }),
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message)
-            {
-                console.log(data.message);
-                fetchUploadedFiles();
-            }
-            else if (data.error)
-            {
-                console.error(data.error);
-                alert(`Error deleting file: ${data.error}`);
-            }
-        })
-        .catch(error => {
-            console.error('Error deleting file:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.log(data.message);
+                    fetchAllUploadedFiles(); // Refresh all lists after deletion
+                } else if (data.error) {
+                    console.error(data.error);
+                    alert(`Error deleting file: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting file:', error);
+            });
     }
 
-    fetchUploadedFiles();
+    fetchAllUploadedFiles();
 });

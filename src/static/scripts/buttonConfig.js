@@ -18,8 +18,8 @@ document.getElementById('file').addEventListener('change', function(event) {
         const fileItem = document.createElement('div');
         const fileName = document.createElement('span');
         
-        fileItem.classList.add('file-item');
-        fileName.classList.add('file-name');
+        fileItem.classList.add('fileItem');
+        fileName.classList.add('fileName');
         fileName.textContent = file.name;
         
         fileItem.appendChild(fileName);
