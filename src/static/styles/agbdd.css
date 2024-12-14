@@ -8,9 +8,44 @@
   padding-left: 2rem;
   background-color: white;
   padding-bottom: 2rem;
+  box-sizing: border-box;
   box-shadow: 0px 0px 10px 1px rgb(0, 0, 0, 0.1);
 }
 
 h2{
   text-align: center;
+}
+a{
+  width: fit-content;
+  display: contents;
+}
+.agbddText{
+  font-size: 1.5rem;
+  font-weight: 300;
+  display: flex;
+  width: 100%;
+  fill-opacity: initial;
+  text-align: justify;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.modelImage{
+  width: 100%;
+  height: auto;
+  margin-top:3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#gatModel{
+  width: 75%;
+  padding-right: 6rem;
+}
+
+#agbddModel{
+  width: 45%;
 }

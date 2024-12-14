@@ -12,15 +12,31 @@
 
   <hr class="titleSeparator">
   
-  <p>
-  AGBDD stands for Autonomous Generic Behaviour Driven Development, it is a conceptual expansion of BDD
-  (Behaviour Driven Development), that aims to provide independence to the QA team, by allowing them to
-  define their test cases with generic descriptions of the expected behaviour of the system, without the
-  need of a developer to implement the test cases. This is achieved by using a generic language that can
-  be interpreted by the system, and then executed as a test case. 
-  <p>
-  This allows the QA team to define their test cases in a more abstract way, without the need to know
-  the specifics of the system, and then the system can interpret the test cases and execute them as needed.
+  <section class="agbddText">
+    AGBDD, which stands for Autonomous Generic Behavior Driven Development, is a newly
+    defined development paradigm meant to help QA teams to become independent from development
+    teams in automated testing.
+    <br>
+    <br>
+    It is an expansion of Behavior Driven Development (BDD), which increments to that paradigm
+    the Generic Autonomous Testing model (GAT), which allows the creation of test cases that
+    can be automated and executed without the need of direct test implementation.
+    <br>
+    <br>
+    This is achieved by the creation of a set of generic Statements which can be used to describe
+    the general behavior of a type of system, and are implemented in an Open Source
+    environment. This allows the QA team to create test cases without the need of direct development
+    by externalizing the implementation of the test cases. The GAT model can be illustrated as such:
+    <section class="modelImage">
+      <img src="{{ url_for('static', filename='images/gat_model.svg') }}" id="gatModel">
+    </section>
+    With this, we can expand the BDD paradigm by adding to it the GAT model. Therefore,
+    the AGBDD model can be illustrated as:
+    <section class="modelImage">
+      <img src="{{ url_for('static', filename='images/agbdd_model.svg') }}" id="agbddModel">
+    </section>
+    For more information about AGBDD and GAT, please check the complete dissertation <a href="">here</a>.
+  </section>
 
   <p>
 
