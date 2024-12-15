@@ -59,11 +59,16 @@ class GenerateFeature:
             examples_sizes.extend([
                 len(examples[0]) + 2,
                 max(len(scenario_values['method']), len(examples[1])),
-                max(len(scenario_values['url']),len(examples[2]), len(path_completed)), 
+                max(len(scenario_values['path']),len(examples[2]), len(path_completed)), 
                 max(len(self.test_cases.convertToString(scenario_values['headers'],True)), len(examples[3])), 
                 max(len(self.test_cases.convertToString(scenario_values['params'], True)), len(examples[4])), 
-                max(len(self.test_cases.convertToString(scenario_values['payload_api'], True)), len(examples[5])),
             ])
+            if len(examples) > 5:
+                examples_sizes.extend(max(
+                    len(self.test_cases.convertToString(scenario_values['payload'], True)),
+                    len(examples[5])
+                ))
+                
 
             examples.append('status_code')
             examples_sizes.append(len(examples[-1]))
