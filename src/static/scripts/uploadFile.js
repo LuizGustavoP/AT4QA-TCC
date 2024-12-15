@@ -143,7 +143,15 @@ document.addEventListener('DOMContentLoaded', function () {
                                 checkbox.classList.add('file-checkbox');
                                 fileInfoSection.appendChild(checkbox);
                             }
-                            
+                            else if(typeSelect === 'documentation')
+                            {
+                                const radio = document.createElement('input');
+                                radio.type = 'radio';
+                                radio.value = file;
+                                radio.classList.add('file-radio');
+                                fileInfoSection.appendChild(radio);
+                            }
+
                             const fileNameSpan = document.createElement('span');
                             fileNameSpan.textContent = file;
                             fileInfoSection.appendChild(fileNameSpan);

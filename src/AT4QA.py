@@ -219,13 +219,25 @@ def download_report_html():
 def download_report_json():
     return send_from_directory(directory=os.getcwd(), path='report.json')
 
-@app.route('/generate_feature', methods=['GET'])
+@app.route('/generate_feature', methods=['POST'])
 def generate_feature():
-    file = request.args.get('file', '')
-    endpoints = request.args.get('endpoints', '')
-    print(f"python generic_api_testing/generator/useTestCase.py \"{file}\" \"{endpoints}\"")
-    os.system(f"python generic_api_testing/generator/useTestCase.py \"{file}\" \"{endpoints}\"")
-    return jsonify({'message': 'Generating Tests!'}), 200
+    try:
+        data = request.get_json()
+        selectedPaths = data.get('paths', '')
+        selectedFiles = data.get('file', '')
+
+        if not selectedFiles:
+            return jsonify({'error': 'No files selected for translation'}), 400
+        
+        command = f"python generic_api_testing/generator/GenerateFeature.py {selectedFiles} {selectedPaths}"
+        print(f"Executing command: {command}")
+
+        os.system(command)
+
+        return jsonify({'message': 'Translation started successfully!'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/translate_feature', methods=['POST'])
 def translate_feature():

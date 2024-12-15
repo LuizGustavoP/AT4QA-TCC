@@ -1,4 +1,5 @@
 from TestCase import TestCase
+import argparse
 import os
 
 class GenerateFeature:
@@ -6,42 +7,72 @@ class GenerateFeature:
     def __init__(self, file_name:str):
         self.test_cases = TestCase(file_name)
 
-    def create_feature(self, path:str):
+    def createName(self, path:str) -> str:
+        feature_name = f"{path}".replace('{', '').replace('}','')
+
+        delimiters = ["/", "-",]
+
+        for delimiter in delimiters:
+            feature_name = " ".join(feature_name.split(delimiter))
+        feature_names = feature_name.split()
+        feature_name = ''
+        for name in feature_names:
+            feature_name += name.capitalize()
+
+        return feature_name
+    
+    def createMultiFeatures(self, paths =[]):
+        if paths == []:
+            paths = self.test_cases.paths
+        
+        for path in paths:
+            self.createFeature(path)
+
+    def createFeature(self, path:str):
         scenarios = self.test_cases.createScenarios(path)
-        feature_name = f"{path}".replace("/","_").replace('{', '').replace('}','')
-        file = open(f"{os.path.basename(feature_name)}.feature", "w", encoding="utf-8")
+        feature_name = self.createName(path)
+
+        file = open(f"features/{os.path.basename(feature_name)}.feature", "w", encoding="utf-8")
         file.write(f"@{os.path.basename(feature_name)}\nFeature: {os.path.basename(feature_name)}\n\n")    
+
+        size_scenarios = len(scenarios.items())
 
         for scenario, scenario_values in scenarios.items():
             path_completed = scenario_values['path']
             for param in scenario_values['params']:
                 path_completed = scenario_values['path'].replace("{"+param['name']+"}", param['value'])
-            file.write(f"\n Scenario Outline: {scenario} {scenario_values['summary']}\n\n")
+            if size_scenarios <=1 and scenario_values['summary'] != '':
+                scenario = ''
+            file.write(f"\n  Scenario Outline: {scenario} {scenario_values['summary']}\n\n")
             examples = []
             examples_sizes = []
 
-            file.write('  When a API com o verbo "<method>" for chamada no endpoint "<path>" com os'
-                    ' headers "<headers>", parâmetros "<query>" e payload "<payload>"')
+            file.write('    When the API with method "<method>" is called on the endpoint "<url>"'
+                            ' with headers "<headers>", parameters "<params>" and payload "<payload_api>"')
             examples.extend([
                 "method",
-                "path",
+                "url",
                 "headers",
-                "query",
-                "payload"
+                "params",
+                "payload_api"
             ])
             examples_sizes.extend([
                 len(examples[0]) + 2,
                 max(len(scenario_values['method']), len(examples[1])),
-                max(len(scenario_values['path']),len(examples[2]), len(path_completed)), 
+                max(len(scenario_values['url']),len(examples[2]), len(path_completed)), 
                 max(len(self.test_cases.convertToString(scenario_values['headers'],True)), len(examples[3])), 
-                max(len(self.test_cases.convertToString(scenario_values['query'], True)), len(examples[4])), 
-                max(len(self.test_cases.convertToString(scenario_values['payload'], True)), len(examples[5])),
+                max(len(self.test_cases.convertToString(scenario_values['params'], True)), len(examples[4])), 
+                max(len(self.test_cases.convertToString(scenario_values['payload_api'], True)), len(examples[5])),
             ])
-            file.write("\n\n  Examples: \n  ")
+
+            examples.append('status_code')
+            examples_sizes.append(len(examples[-1]))
+            file.write('\n    Then the API will return "<status_code>"')
+            file.write("\n\n    Examples: \n      ")
 
             for i in range(0, len(examples)):
-                file.write(f"|{examples[i].ljust(examples_sizes[i])} ")
-            file.write("|\n  ")
+                file.write(f"| {examples[i].ljust(examples_sizes[i])} ")
+            file.write("|\n      ")
 
             for status_code in scenario_values['status_codes']:
                 path = scenario_values['path']
@@ -60,13 +91,27 @@ class GenerateFeature:
                         else:
                             string = self.test_cases.convertToString(scenario_values[examples[i]], use_values)
                         string = string
-                        file.write(f"|{string.ljust(examples_sizes[i])} ")
+                        file.write(f"| {string.ljust(examples_sizes[i])} ")
                     else:
                         string = "*" + examples[i] + "*"
 
                         if examples[i] == 'status_code':
                             string = status_code
-                        file.write(f"|{string.ljust(examples_sizes[i])} ")
-                file.write('|\n  ')
+                        file.write(f"| {string.ljust(examples_sizes[i])} ")
+                file.write('|\n      ')
         file.write("\n")
         file.close()
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file")
+    parser.add_argument("paths", nargs='?', default=[])
+    args = parser.parse_args()
+    print(args)
+    generate_feature = GenerateFeature(args.file)
+    paths = args.paths
+    if isinstance(args.paths, str):
+        paths = args.paths.split(',')
+    generate_feature.createMultiFeatures(paths)
+if __name__ == '__main__':
+    main()

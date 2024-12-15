@@ -1,4 +1,5 @@
 import yaml
+import json
 from pathlib import Path
 import rstr
 
@@ -8,12 +9,23 @@ class TestCase:
     schemas = {} 
 
     def __init__(self, file_name: str):
-        with Path(file_name).open('r', encoding="utf8") as file:
-            document = yaml.safe_load(file)
+        print(file_name)
+        if file_name.endswith('.yml'):
+            with Path('documentation/'+file_name).open('r', encoding="utf8") as file:
+                document = yaml.safe_load(file)
+        elif file_name.endswith('.json'):
+            with Path('documentation/'+file_name).open('r', encoding="utf8") as file:
+                document = json.load(file)
+        else:
+            raise Exception('File must be a yaml or json file')
+
         self.document = document
         
-        self.createSchemas(document['components']['schemas'])
-        self.createTags(document['tags'])
+        if('components' in document.keys()):
+            self.createSchemas(document['components']['schemas'])
+        
+        if('tags' in document.keys()):
+            self.createTags(document['tags'])
         self.createPaths(document['paths'])
 
     def createTags(self, tags):
@@ -26,7 +38,6 @@ class TestCase:
         query = []
         params = []
         headers = []
-        #pdb.set_trace()
         for parameter_name, parameter_value in parameters.items():
             if 'example' in parameter_value.keys():
                 value = parameter_value['example']
@@ -35,7 +46,7 @@ class TestCase:
             else:
                 value = self.createExample(parameter_value['schema'])
 
-            if parameter_value['in'] == 'query':
+            if parameter_value['in'] == 'params':
                 query.append({
                     'name': parameter_name,
                     'value': value,
@@ -47,7 +58,7 @@ class TestCase:
                     'value': value,
                     'other_properties': parameter_value
                 })
-            elif parameter_value['in'] == 'path':
+            elif parameter_value['in'] == 'url':
                 params.append({
                     'name': parameter_name,
                     'value': value,
@@ -140,7 +151,7 @@ class TestCase:
                         "status_codes": method_schema['responses'],
                         'path': path,
                         "method": method,
-                        "summary": method_schema['summary'],
+                        "summary": self.check_key(method_schema, 'summary'),
                     }
                     aux+=1
             else:
@@ -153,7 +164,7 @@ class TestCase:
                     "payload": [],
                     'path': path,
                     "method": method,
-                    "summary": method_schema['summary'],
+                    "summary": self.check_key(method_schema, 'summary'),
                 }
         return scenarios
     
@@ -196,7 +207,7 @@ class TestCase:
                     body = self.schemas[name_ref_schema]
                 self.paths[path][method] = {
                     "path": path,
-                    "summary": method_schema['summary'],
+                    "summary": self.check_key(method_schema, 'summary'),
                     "method": method,
                     "parameters": self.findParameters(path, method_schema),
                     "body": body,
@@ -231,7 +242,7 @@ class TestCase:
             if schema_name in self.schemas.keys():
                 return
             self.schemas[schema_name] = self.getType(schema)
-          
+
     def getType(self, schema: dict):
 
         schema_convert = {}
@@ -263,7 +274,7 @@ class TestCase:
 
             schema_convert['properties'] = schema_properties
         return schema_convert
-       
+
     def getRef(self, schema:dict, key:str) -> list:
         schema_list = []
         for value in schema[key]:
@@ -273,3 +284,8 @@ class TestCase:
                 self.findSchemas(name_ref_schema, self.document['components']['schemas'][name_ref_schema])
             schema_list.append(self.schemas[name_ref_schema])
         return schema_list
+    
+    def check_key(self, dictionary: dict, key: str, default = ''):
+        if key in dictionary.keys():
+            return dictionary[key]
+        return default
