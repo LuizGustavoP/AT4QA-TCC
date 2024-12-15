@@ -6,7 +6,7 @@ class MaskParser():
   
   def loadMask(file):
 
-    mask = open(file, "r", encoding="utf-8")
+    mask = open("translator/masks/" + file, "r", encoding="utf-8")
     lines = mask.readlines()
 
     scenario = ""

@@ -1,7 +1,7 @@
 import os
 import argparse
-from translator.DictParser import DictParser
-from translator.MaskParser import MaskParser
+from DictParser import DictParser
+from MaskParser import MaskParser
 
 class FeatureTranslator():
 
@@ -30,7 +30,7 @@ class FeatureTranslator():
 
   def writeFeature(feature_name):
 
-    file = open(f"{os.path.basename(feature_name)}.feature", "w", encoding="utf-8")
+    file = open(f"features/{os.path.basename(feature_name)}Translated.feature", "w", encoding="utf-8")
 
     file.write(f"@{os.path.basename(feature_name)}\nFeature: {os.path.basename(feature_name)}\n\n")
 

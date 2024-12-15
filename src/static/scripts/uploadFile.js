@@ -135,11 +135,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             const fileInfoSection = document.createElement('section');
                             fileInfoSection.classList.add('fileInfo');
                             
-                            const checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.value = file;
-                            checkbox.classList.add('file-checkbox');
-                            fileInfoSection.appendChild(checkbox);
+                            if(typeSelect === 'masks' || typeSelect === 'dictionaries')
+                            {
+                                const checkbox = document.createElement('input');
+                                checkbox.type = 'checkbox';
+                                checkbox.value = file;
+                                checkbox.classList.add('file-checkbox');
+                                fileInfoSection.appendChild(checkbox);
+                            }
                             
                             const fileNameSpan = document.createElement('span');
                             fileNameSpan.textContent = file;

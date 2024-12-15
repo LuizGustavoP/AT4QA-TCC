@@ -24,7 +24,7 @@
   </section>
     
   <form id="uploadForm" action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data" class="formElements">
-    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".yaml,.json" required style="display: none;">
+    <input type="file" name="file" id="file" class="uploadFeatureFiles" multiple accept=".mask,.dict" required style="display: none;">
     <button type="button" id="customFileButton" class="customFileButton">Select Files</button>
     <p>
     <div id="fileList"></div>
@@ -69,15 +69,7 @@
 
   <hr class="separator">
 
-  <section class="builderInfo">
 
-      <section id="downloadLink" style="display: none;">
-        <section class="saveButtonsContainer">
-          <button id="saveButton" class="saveButton">Save Changes</button>
-          <button id="saveAsButton" class="saveButton">Save As...</button>
-        </section>
-      </section>
-  </section>
 
 </section>
 

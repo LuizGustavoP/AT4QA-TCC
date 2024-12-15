@@ -11,7 +11,7 @@ class DictParser():
     for file in files:
       DictParser.dictionaries[file] = {}
 
-      dict = open(file, encoding="utf-8")
+      dict = open("translator/dictionaries/" + file, encoding="utf-8")
       lines = dict.readlines()
       statement = ""
       equivalent_statements = -1

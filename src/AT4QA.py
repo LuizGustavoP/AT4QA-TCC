@@ -9,10 +9,14 @@ pytest_process = None
 EDITOR_UPLOAD_FOLDER = 'editor'
 FEATURE_UPLOAD_FOLDER= 'features'
 DOCUMENTATION_UPLOAD_FOLDER = 'documentation'
+TRANSLATOR_MASKS_UPLOAD_FOLDER = 'translator/masks'
+TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER = 'translator/dictionaries'
 
 app.config['EDITOR_UPLOAD_FOLDER'] = EDITOR_UPLOAD_FOLDER
 app.config['FEATURE_UPLOAD_FOLDER'] = FEATURE_UPLOAD_FOLDER
 app.config['DOCUMENTATION_UPLOAD_FOLDER'] = DOCUMENTATION_UPLOAD_FOLDER
+app.config['TRANSLATOR_MASKS_UPLOAD_FOLDER'] = TRANSLATOR_MASKS_UPLOAD_FOLDER
+app.config['TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER'] = TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER
 
 app.config["ALLOWED_FILE_EXTENSIONS"] = ["feature", "mask", "dictionary", "yaml", "json"]
 
@@ -24,6 +28,12 @@ if not os.path.exists(app.config["FEATURE_UPLOAD_FOLDER"]):
 
 if not os.path.exists(app.config["DOCUMENTATION_UPLOAD_FOLDER"]):
     os.makedirs(app.config["DOCUMENTATION_UPLOAD_FOLDER"])
+
+if not os.path.exists(app.config["TRANSLATOR_MASKS_UPLOAD_FOLDER"]):
+    os.makedirs(app.config["TRANSLATOR_MASKS_UPLOAD_FOLDER"])
+
+if not os.path.exists(app.config["TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER"]):
+    os.makedirs(app.config["TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER"])
 
 def check_file_extension(file):
     return "." in file and file.rsplit(".", 1)[1].lower() in app.config["ALLOWED_FILE_EXTENSIONS"]
@@ -56,6 +66,13 @@ def editor():
         title="Editor - AT4QA Project"
     )
 
+@app.route('/translator')
+def translator():
+    return render_template(
+        'translator.html',
+        title="Translator - AT4QA Project"
+    )
+
 @app.route('/test_builder')
 def test_builder():
     return render_template(
@@ -77,10 +94,14 @@ def upload_file():
         if file.filename == '':
             return jsonify({'error': 'No selected file'}), 400
 
-        if file and type == 'feature':
+        if file and type == 'features':
             file.save(os.path.join(app.config['FEATURE_UPLOAD_FOLDER'], file.filename))
         elif file and type == 'documentation':
             file.save(os.path.join(app.config['DOCUMENTATION_UPLOAD_FOLDER'], file.filename))
+        elif file and type == 'masks':
+            file.save(os.path.join(app.config['TRANSLATOR_MASKS_UPLOAD_FOLDER'], file.filename))
+        elif file and type == 'dictionaries':
+            file.save(os.path.join(app.config['TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER'], file.filename))
 
     return jsonify({'message': 'Files successfully uploaded'}), 200
 
@@ -90,10 +111,14 @@ def list_uploaded_documentation():
     type = request.args.get('type', '')
 
     try:
-        if(type == 'feature'):
+        if(type == 'features'):
             files = os.listdir(FEATURE_UPLOAD_FOLDER)
         elif(type == 'documentation'):
             files = os.listdir(DOCUMENTATION_UPLOAD_FOLDER)
+        elif(type == 'masks'):
+            files = os.listdir(TRANSLATOR_MASKS_UPLOAD_FOLDER)
+        elif(type == 'dictionaries'):
+            files = os.listdir(TRANSLATOR_DICTIONARIES_UPLOAD_FOLDER)
         return jsonify({'files': files}), 200
     
     except Exception as e:
@@ -201,6 +226,26 @@ def generate_feature():
     print(f"python generic_api_testing/generator/useTestCase.py \"{file}\" \"{endpoints}\"")
     os.system(f"python generic_api_testing/generator/useTestCase.py \"{file}\" \"{endpoints}\"")
     return jsonify({'message': 'Generating Tests!'}), 200
+
+@app.route('/translate_feature', methods=['POST'])
+def translate_feature():
+    try:
+        data = request.get_json()
+        selected_files = data.get('files', [])
+
+        if not selected_files:
+            return jsonify({'error': 'No files selected for translation'}), 400
+
+        selectedFiles = ' '.join(f'"{file}"' for file in selected_files)
+        command = f"python generic_api_testing/translator/FeatureTranslator.py {selectedFiles}"
+        print(f"Executing command: {command}")
+
+        os.system(command)
+
+        return jsonify({'message': 'Translation started successfully!'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/glossary')
 def glossary():
